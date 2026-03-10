@@ -14,7 +14,7 @@ The lab gets updated regularly, so do [sync your fork with the upstream](https:/
 
 ## Lab story
 
-Today's tasks will be about **Data engineering**. 
+Today's tasks will be about **Data engineering**.
 Same project – **Learning Management Service**.
 
 The system has an API and front-end in place. Now the team needs to populate the database with real data from an external source, build analytics on top of it, and visualize the results.

@@ -69,13 +69,13 @@ Title: `[Task] Grafana Dashboard`
 2. Select **PostgreSQL**.
 3. Configure the connection:
 
-   | Field | Value |
-   |-------|-------|
-   | Host | `postgres:5432` |
-   | Database | `db-lab-5` |
-   | User | `postgres` |
-   | Password | `postgres` |
-   | TLS/SSL Mode | `disable` |
+   | Field        | Value           |
+   | ------------ | --------------- |
+   | Host         | `postgres:5432` |
+   | Database     | `db-lab-5`      |
+   | User         | `postgres`      |
+   | Password     | `postgres`      |
+   | TLS/SSL Mode | `disable`       |
 
    > 🟦 **Note**
    >

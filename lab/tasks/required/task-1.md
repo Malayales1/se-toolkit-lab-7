@@ -301,13 +301,12 @@ The code stubs in `backend/app/etl.py` contain detailed TODOs.
 
    The exact numbers depend on how many check results exist in the Autochecker.
 
-
    <details><summary><b>Troubleshooting (click to open)</b></summary>
 
    <h4>500 Internal Server Error</h4>
   
    If you get a `500` error, the pipeline code has a bug. Use this debug loop:
-   
+
    1. To check the container logs for the error,
 
       [run in the `VS Code Terminal`](../../../wiki/vs-code.md#run-a-command-in-the-vs-code-terminal):
@@ -315,6 +314,7 @@ The code stubs in `backend/app/etl.py` contain detailed TODOs.
       ```terminal
       docker compose --env-file .env.docker.secret logs app --tail 50
       ```
+
    2. Copy the error traceback and give it to your coding agent.
    3. Apply the fix, rebuild (`docker compose --env-file .env.docker.secret up --build -d`), and try again.
    4. Repeat this cycle 2–3 times. AI agents often make mistakes with field names, imports, or database constraints on the first try. Each iteration gets you closer.
