@@ -31,8 +31,8 @@
   - [1.11. (UPD) Set up `Qwen Code` (LOCAL)](#111-upd-set-up-qwen-code-local)
   - [1.12. (UPD) Set up the `Qwen Code` API (VM)](#112-upd-set-up-the-qwen-code-api-vm)
   - [1.13. (UPD) Deploy the LMS API (REMOTE)](#113-upd-deploy-the-lms-api-remote)
-  - [1.14. Set up the `Autochecker` bot (`Telegram`)](#114-set-up-the-autochecker-bot-telegram)
-  - [1.15. Check the setup using the `Autochecker` bot (`Telegram`)](#115-check-the-setup-using-the-autochecker-bot-telegram)
+  - [1.14. Set up the `Autochecker` bot](#114-set-up-the-autochecker-bot)
+  - [1.15. Check the setup using the `Autochecker` bot](#115-check-the-setup-using-the-autochecker-bot)
 - [2. Optional steps](#2-optional-steps)
   - [2.1. (UPD) Set up `Nix` (LOCAL)](#21-upd-set-up-nix-local)
   - [2.2. (UPD) Set up `direnv` (LOCAL)](#22-upd-set-up-direnv-local)
@@ -56,8 +56,6 @@
 > - `(LOCAL)` - on your local machine (laptop).
 >
 > - `(VM)` - on your VM.
->
-> - `(Telegram)` - in `Telegram`.
 
 > [!NOTE]
 > We provide the hardest setup steps before all other tasks
@@ -274,11 +272,11 @@ See [tools](../../wiki/software-types.md#tool).
 
 1. [Deploy the LMS API to your VM](../../wiki/lms-api-deployment.md#about-the-lms-api-deployment).
 
-### 1.14. Set up the `Autochecker` bot (`Telegram`)
+### 1.14. Set up the `Autochecker` bot
 
 [Set up the `Autochecker`](../../wiki/autochecker.md#set-up-the-autochecker)
 
-### 1.15. Check the setup using the `Autochecker` bot (`Telegram`)
+### 1.15. Check the setup using the `Autochecker` bot
 
 [Check the task](../../wiki/autochecker.md#check-the-task-using-the-autochecker-bot).
 
