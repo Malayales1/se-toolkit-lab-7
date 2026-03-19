@@ -8,18 +8,28 @@
   - [Why containers are useful](#why-containers-are-useful)
   - [Containers and host](#containers-and-host)
   - [Container ID](#container-id)
-- [Set up `Docker`](#set-up-docker)
-  - [Install `Docker`](#install-docker)
-  - [Start `Docker`](#start-docker)
-  - [Clean up `Docker`](#clean-up-docker)
+- [`DockerHub`](#dockerhub)
+  - [`<your-dockerhub-username>`](#your-dockerhub-username)
 - [Common `Docker` commands](#common-docker-commands)
   - [`docker run`](#docker-run)
     - [`docker run` typical pattern](#docker-run-typical-pattern)
     - [`docker run` useful flags](#docker-run-useful-flags)
   - [`docker ps`](#docker-ps)
     - [`docker ps` useful variants](#docker-ps-useful-variants)
-- [`DockerHub`](#dockerhub)
-  - [`<your-dockerhub-username>`](#your-dockerhub-username)
+- [Set up `Docker` (LOCAL)](#set-up-docker-local)
+  - [Install `Docker`](#install-docker)
+  - [Start `Docker`](#start-docker)
+- [Set up `Docker` as the user `<user>` (REMOTE)](#set-up-docker-as-the-user-user-remote)
+  - [Add the user `<user>` to the group `docker` (REMOTE)](#add-the-user-user-to-the-group-docker-remote)
+- [Configure `Docker` DNS](#configure-docker-dns)
+- [Remove `Docker` containers](#remove-docker-containers)
+  - [Clean up `Docker`](#clean-up-docker)
+  - [Remove the container running at the port](#remove-the-container-running-at-the-port)
+- [Troubleshooting](#troubleshooting)
+  - [Image pull fails](#image-pull-fails)
+  - [Port conflict (`port is already allocated`)](#port-conflict-port-is-already-allocated)
+  - [DNS resolution errors](#dns-resolution-errors)
+  - [User not in the `docker` group](#user-not-in-the-docker-group)
 
 ## What is `Docker`
 
@@ -51,23 +61,9 @@ A container is an isolated runtime for an application and its dependencies.
 
 ### Containers and host
 
-<img alt="Containers and host" src="./images/docker/hierarchy.png" style="width:400px"></img> ([source](https://rest-apis-flask.teclado.com/docs/docker_intro/what_is_docker_container/))
+<img alt="Containers and host" src="./images/docker/hierarchy.png" style="width:400px"></img>
 
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│  Docker host                                                    │
-│                                                                 │
-│  ┌──────────────────────────┐  ┌──────────────────────────┐     │
-│  │ container                │  │ container                │     │
-│  │                          │  │                          │     │
-│  │  web app                 │  │  database                │     │
-│  │  Python 3.11, libraries  │  │  Postgres, libraries     │     │
-│  │  OS files                │  │  OS files                │     │
-│  └──────────────────────────┘  └──────────────────────────┘     │
-│                                                                 │
-│ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄ Linux kernel (shared) ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ │
-└─────────────────────────────────────────────────────────────────┘
-```
+[[source](https://rest-apis-flask.teclado.com/docs/docker_intro/what_is_docker_container/)]
 
 ### Container ID
 
@@ -86,70 +82,19 @@ a3f5b9c2d1e4   my-app    ...
 
 `a3f5b9c2d1e4` is the container ID (a short prefix of the full 64-character string).
 
-## Set up `Docker`
+## `DockerHub`
 
-Complete these steps:
+`DockerHub` is a public container registry where you can store and pull [Docker images](#image).
 
-1. [Install `Docker`](#install-docker).
-2. [Start `Docker`](#start-docker).
-3. [Clean up `Docker`](#clean-up-docker).
+You can push a locally built image to `DockerHub` so that other machines (such as a VM) can pull and run it without building from source.
 
-### Install `Docker`
+Docs:
 
-Follow the [installation instructions](https://docs.docker.com/get-started/get-docker/).
+- [`DockerHub`](https://hub.docker.com/)
 
-### Start `Docker`
+### `<your-dockerhub-username>`
 
-If you installed `Docker Desktop`:
-
-1. Open `Docker Desktop`.
-2. Skip login.
-3. Wait until you see `Engine running`.
-
-### Clean up `Docker`
-
-> [!NOTE]
-> If there are permission errors, replace `docker` with `sudo docker`.
-
-1. To stop all running containers,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   docker stop $(docker ps -q) 2>/dev/null
-   ```
-
-   You should see removed [container IDs](#container-id).
-
-2. To remove all stopped containers,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   docker container prune -f
-   ```
-
-   The output should be empty or similar to this:
-
-   ```terminal
-   ...
-   Total reclaimed space: ...
-   ```
-
-3. To delete unused [volumes](./docker-compose.md#volume),
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   docker volume prune -f --all
-   ```
-
-   The output should be similar to this:
-
-   ```terminal
-   ...
-   Total reclaimed space: ...
-   ```
+Your [`DockerHub`](#dockerhub) username (without `<` and `>`).
 
 ## Common `Docker` commands
 
@@ -181,16 +126,263 @@ docker run --name <container-name> -p <host-port>:<container-port> <image-name>
 - `docker ps` - only running containers.
 - `docker ps -a` - all containers (including stopped).
 
-## `DockerHub`
+## Set up `Docker` (LOCAL)
 
-`DockerHub` is a public container registry where you can store and pull [Docker images](#image).
+Complete these steps:
 
-You can push a locally built image to `DockerHub` so that other machines (such as a VM) can pull and run it without building from source.
+1. [Install `Docker` (LOCAL)](#install-docker).
+2. [Start `Docker` (LOCAL)](#start-docker).
 
-Docs:
+### Install `Docker`
 
-- [`DockerHub`](https://hub.docker.com/)
+Follow the [installation instructions](https://docs.docker.com/get-started/get-docker/).
 
-### `<your-dockerhub-username>`
+### Start `Docker`
 
-Your [`DockerHub`](#dockerhub) username (without `<` and `>`).
+If you installed `Docker Desktop`:
+
+1. Open `Docker Desktop`.
+2. Skip login.
+3. Wait until you see `Engine running`.
+
+## Set up `Docker` as the user `<user>` (REMOTE)
+
+Complete these steps
+
+1. [Connect to the VM as the user `<user>`](./vm-access.md#connect-to-the-vm-as-the-user-user-local).
+2. [Add the user `<user>` to the group `docker` (REMOTE)](#add-the-user-user-to-the-group-docker-remote).
+3. [Configure `Docker` DNS as the user `<user>` (REMOTE)](#configure-docker-dns).
+
+### Add the user `<user>` to the group `docker` (REMOTE)
+
+> [!NOTE]
+> Replace the placeholder [`<user>`](./operating-system.md#user-placeholder).
+
+1. To add the user `<user>` to the group `docker`:
+
+   1. [Run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+      ```terminal
+      sudo usermod -aG docker <user>
+      ```
+
+   2. [Type the password for the user `<user>`](./shell.md#type-the-password-for-the-user).
+
+2. To check that the user `<user>` was added to the group `docker`,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   groups <user>
+   ```
+
+   The output should be similar to this:
+
+   ```terminal
+   <user> : <user-group> sudo users docker
+   ```
+
+   > 🟦 **Note**
+   >
+   > See [`<user-group>`](./operating-system.md#user-group-placeholder).
+
+3. To apply the new group membership in the current session,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   newgrp docker
+   ```
+
+   > 🟪 **Important**
+   >
+   > Without this step, the group change only takes effect when you [connect to the VM as the user `<user>`](./vm-access.md#connect-to-the-vm-as-the-user-user-local) next time.
+
+## Configure `Docker` DNS
+
+1. To create the `Docker` directory if it doesn't exist:
+
+   1. [Run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+      ```terminal
+      sudo mkdir -p /etc/docker/
+      ```
+
+   2. [Type the password](./shell.md#type-the-password-for-the-user).
+  
+2. To add `Google` DNS to `Docker`:
+
+   1. [Run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+      ```terminal
+      echo '{"dns": ["8.8.8.8", "8.8.4.4"]}' \
+      | jq \
+      | sudo tee /etc/docker/daemon.json
+      ```
+
+      The output should look like this:
+
+      ```json
+      {
+        "dns": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      }
+      ```
+
+   2. [Type the password](./shell.md#type-the-password-for-the-user).
+
+3. To restart the `docker` service,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   sudo systemctl restart docker
+   ```
+
+## Remove `Docker` containers
+
+- Method 1: [Clean up `Docker`](#clean-up-docker)
+- Method 2: [Remove the container running at the port](#remove-the-container-running-at-the-port)
+
+### Clean up `Docker`
+
+> [!NOTE]
+> See [`<user>`](./operating-system.md#user-placeholder).
+
+1. To stop all running containers:
+
+   1. [Run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+      ```terminal
+      sudo docker stop $(docker ps -q) 2>/dev/null
+      ```
+
+   2. [Type the password](./shell.md#type-the-password-for-the-user).
+
+2. To remove all stopped containers,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   sudo docker container prune -f
+   ```
+
+   The output should be empty or similar to this:
+
+   ```terminal
+   ...
+   Total reclaimed space: ...
+   ```
+
+3. To delete unused [volumes](./docker-compose.md#volume),
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   sudo docker volume prune -f --all
+   ```
+
+   The output should be similar to this:
+
+   ```terminal
+   ...
+   Total reclaimed space: ...
+   ```
+
+4. To remove unused [networks](./docker-compose.md#docker-compose-networking),
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   sudo docker network prune -f
+   ```
+
+   The output should be empty or similar to this:
+
+   ```terminal
+   ...
+   Total reclaimed space: ...
+   ```
+
+### Remove the container running at the port
+
+1. To find the [container](#container) occupying the port,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   docker ps --filter "publish=<port>"
+   ```
+
+   Replace the placeholder `<port>` with the port number from the error message.
+
+   The output should be similar to this:
+
+   ```terminal
+   CONTAINER ID     IMAGE     COMMAND   ...   PORTS
+   <container-id>   my-app    ...       ...   <host>:<port>->8000/tcp
+   ```
+
+   The `<container-id>` is a hash like `a3f5b9c2d1e4`.
+
+2. To force-remove the container,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   docker rm -f <container-id>
+   ```
+
+   Replace the placeholder `<container-id>` with the [container ID](#container-id) from the previous step.
+
+3. To remove the [volume](./docker-compose.md#volume) left by the removed container,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   docker volume prune -f --all
+   ```
+
+   The output should be similar to this:
+
+   ```terminal
+   ...
+   Total reclaimed space: ...
+   ```
+
+## Troubleshooting
+
+<!-- no toc -->
+- [Image pull fails](#image-pull-fails)
+- [Port conflict (`port is already allocated`)](#port-conflict-port-is-already-allocated)
+- [DNS resolution errors](#dns-resolution-errors)
+
+### Image pull fails
+
+Steps to fix:
+
+1. [Connect to the correct network](./vm.md#connect-to-the-correct-network).
+
+### Port conflict (`port is already allocated`)
+
+If `docker compose up` fails with an error like `Bind for <host>:<port> failed: port is already allocated`,
+probably a container from a previous run is still occupying that port.
+
+Steps to fix:
+
+1. [Remove the container running at the port](#remove-the-container-running-at-the-port).
+
+### DNS resolution errors
+
+If the build hangs or you see [DNS](./computer-networks.md#dns) errors, [`Docker`](./docker.md#what-is-docker) cannot resolve [domain names](./computer-networks.md#domain-name).
+This is a university network DNS issue.
+
+Steps to fix:
+
+1. [Configure `Docker` DNS](#configure-docker-dns).
+
+### User not in the `docker` group
+
+1. [Add the user `admin` to the group `docker` (REMOTE)](./docker.md#add-the-user-user-to-the-group-docker-remote).

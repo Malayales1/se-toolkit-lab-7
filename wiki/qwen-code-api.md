@@ -3,191 +3,140 @@
 <h2>Table of contents</h2>
 
 - [What is `Qwen Code` API](#what-is-qwen-code-api)
-- [Set up the `Qwen Code` API (REMOTE)](#set-up-the-qwen-code-api-remote)
-  - [Set up the `Qwen Code` CLI (REMOTE)](#set-up-the-qwen-code-cli-remote)
-  - [Start the `Qwen Code` API service (REMOTE)](#start-the-qwen-code-api-service-remote)
-  - [Get the `Qwen Code` API config values (REMOTE)](#get-the-qwen-code-api-config-values-remote)
-  - [Check that the `Qwen Code` API is accessible (REMOTE or LOCAL)](#check-that-the-qwen-code-api-is-accessible-remote-or-local)
+- [`Qwen Code` API key](#qwen-code-api-key)
+  - [`<qwen-code-api-key>` placeholder](#qwen-code-api-key-placeholder)
+- [`Qwen Code` API host port](#qwen-code-api-host-port)
+  - [`<qwen-code-api-host-port>` placeholder](#qwen-code-api-host-port-placeholder)
+- [`Qwen Code` API base URL](#qwen-code-api-base-url)
+  - [`<qwen-code-api-base-url>` placeholder](#qwen-code-api-base-url-placeholder)
+- [Check that the `Qwen Code` API is accessible](#check-that-the-qwen-code-api-is-accessible)
 
 ## What is `Qwen Code` API
 
-<!-- TODO visualize -->
+```mermaid
+sequenceDiagram
+    participant L as Your app / curl<br/>(Local machine)
+    participant Q as Qwen Code API /v1<br/>(Your VM)
+    participant A as Qwen API<br/>(Alibaba, free)
 
-[`qwen-code-oai-proxy`](https://github.com/inno-se-toolkit/qwen-code-oai-proxy) exposes [`Qwen Code`](./qwen.md#what-is-qwen-code) through an [OpenAI-compatible API](./llm.md#openai-compatible-api) so that other tools can use it as an [LLM](./llm.md#what-is-an-llm).
+    L->>Q: POST /v1/chat/completions
+    Q->>A: Forward request
+    A-->>Q: Response
+    Q-->>L: Response
+```
+
+The `Qwen Code` API is an [OpenAI-compatible API](./llm.md#openai-compatible-api) that uses the [`Qwen Code` credentials file](./qwen-code.md#qwen-code-credentials-file) to provide access to the [`Qwen` API](./qwen-code.md#qwen-api).
+
+The `Qwen Code` API is deployed using [`qwen-code-api`](https://github.com/inno-se-toolkit/qwen-code-api).
+
+## `Qwen Code` API key
+
+The [API key](./web-api.md#api-key) that is used to authorize requests to the [`Qwen Code` API](#what-is-qwen-code-api).
+
+The key should follow the [API key format](./web-api.md#api-key-format).
+
+You store the key in [`QWEN_CODE_API_KEY`](./qwen-code-api-dotenv-secret.md#qwen_code_api_key) in [`qwen-code-api/.env.secret`](./qwen-code-api-dotenv-secret.md#qwen_code_api_key).
+
+### `<qwen-code-api-key>` placeholder
+
+The [`Qwen Code` API key](#qwen-code-api-key) (without `<` and `>`).
+
+## `Qwen Code` API host port
+
+The [port](./computer-networks.md#port) at which the [`Qwen Code` API](./qwen-code-api.md#what-is-qwen-code-api) is available on the [host](./computer-networks.md#host) where it is deployed.
+
+### `<qwen-code-api-host-port>` placeholder
+
+The [`Qwen Code` API host port](#qwen-code-api-host-port) (without `<` and  `>`).
+
+## `Qwen Code` API base URL
+
+- (REMOTE) When running the request on the VM (does not depend on whether the [LMS API is deployed on the VM](./lms-api-deployment.md#deploy-the-lms-api-on-the-vm)):
+  
+  `http://localhost:<qwen-code-api-host-port>/v1`
+
+- (REMOTE or LOCAL) When the [LMS API is deployed on the VM](./lms-api-deployment.md#deploy-the-lms-api-on-the-vm):
+  
+  `<lms-api-base-url>/utils/qwen-code-api/v1`
+  
+Replace the placeholders:
+
+- [`<qwen-code-api-host-port>`](#qwen-code-api-host-port-placeholder)
+- [`<lms-api-base-url>`](./lms-api.md#lms-api-base-url-placeholder)
 
 See:
 
-- [Set up the `Qwen Code` API (REMOTE)](#set-up-the-qwen-code-api-remote)
+- [`localhost`](./computer-networks.md#localhost)
 
-## Set up the `Qwen Code` API (REMOTE)
+### `<qwen-code-api-base-url>` placeholder
 
-Complete these steps:
+[`Qwen Code` API base URL](#qwen-code-api-base-url) (without `<` and `>`).
 
-1. [Set up the `Qwen Code` CLI (REMOTE)](#set-up-the-qwen-code-cli-remote).
-2. [Start the `Qwen Code` API service (REMOTE)](#start-the-qwen-code-api-service-remote).
-3. [Get the `Qwen Code` API config values (REMOTE)](#get-the-qwen-code-api-config-values-remote).
-4. [Check that the `Qwen Code` API is accessible (REMOTE)](#check-that-the-qwen-code-api-is-accessible-remote-or-local).
-5. [Check that the `Qwen Code` API is accessible (LOCAL)](#check-that-the-qwen-code-api-is-accessible-remote-or-local).
+## Check that the `Qwen Code` API is accessible
 
-### Set up the `Qwen Code` CLI (REMOTE)
+> [!NOTE]
+>
+> These instructions cover the cases when you run the request:
+>
+> - on your VM (REMOTE)
+> - on your local machine (LOCAL)
 
-1. [Connect to the VM](./ssh.md#connect-to-the-vm).
-
-2. [Install `Node.js`](./nodejs.md#install-nodejs).
-
-3. [Install `pnpm`](./nodejs.md#install-pnpm).
-
-4. To install [`Qwen Code`](./qwen.md#what-is-qwen-code),
+1. To send an [`HTTP` request](./http.md#http-request) to the [`Qwen Code` API](#what-is-qwen-code-api),
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   pnpm add -g @qwen-code/qwen-code
-   ```
-
-5. [Open a chat with `Qwen Code` using the CLI](./qwen.md#open-a-chat-with-qwen-code-using-the-cli).
-
-6. Write `/auth` in the chat to [authenticate via Qwen OAuth](https://github.com/QwenLM/qwen-code?tab=readme-ov-file#authentication).
-
-7. Open the link in a browser to complete the authentication procedure.
-
-8. [Quit the chat with `Qwen Code`](./qwen.md#quit-the-chat-with-qwen-code).
-
-### Start the `Qwen Code` API service (REMOTE)
-
-1. To [clone using the `VS Code Terminal` the repo](./git-vscode.md#clone-the-repo-using-the-vs-code-terminal)
-
-   <https://github.com/inno-se-toolkit/qwen-code-oai-proxy>,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   git clone https://github.com/inno-se-toolkit/qwen-code-oai-proxy ~/qwen-code-oai-proxy
-   ```
-
-2. To enter the repository directory,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   cd ~/qwen-code-oai-proxy
-   ```
-
-3. To create the [environment](./environments.md#what-is-an-environment) file,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   cp .env.example .env
-   ```
-
-4. To open the `.env` file in `nano`,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   nano .env
-   ```
-
-5. Write an arbitrary value for `QWEN_API_KEY`.
-
-   This key will protect your `Qwen Code` API.
-
-6. Save the file (`Ctrl + O`).
-
-7. To start the `Qwen Code` API,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   docker compose up --build -d
-   ```
-
-### Get the `Qwen Code` API config values (REMOTE)
-
-1. [Connect to your VM](./vm.md#connect-to-the-vm) if not yet connected.
-
-2. To enter the `Qwen Code` API repository directory,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   cd ~/qwen-code-oai-proxy
-   ```
-
-3. To get the value of `HOST_PORT` in `.env`,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   cat .env | grep HOST_PORT
-   ```
-
-4. To get the value of `QWEN_API_KEY` in `.env`,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   cat .env | grep QWEN_API_KEY
-   ```
-
-### Check that the `Qwen Code` API is accessible (REMOTE or LOCAL)
-
-1. [Get the `Qwen Code` API config values (REMOTE)](#get-the-qwen-code-api-config-values-remote):
-
-   - `HOST_PORT`
-   - `QWEN_API_KEY`.
-
-2. To send the request to the `Qwen Code` API (REMOTE or LOCAL),
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   curl -s http://<qwen-code-api-address>:<qwen-api-port>/v1/chat/completions \
+   curl -s <qwen-code-api-base-url>/chat/completions \
      -H "Content-Type: application/json" \
-     -H "Authorization: Bearer <qwen-api-key>" \
+     -H "Authorization: Bearer <qwen-code-api-key>" \
      -d '{"model":"<qwen-model>","messages":[{"role":"user","content":"What is 2+2?"}]}' \
-     | jq .
+     | jq
    ```
 
-   Replace placeholders:
+   Replace the placeholders:
 
-   - `<qwen-code-api-address>` with:
-     - `localhost` if you run on your VM (REMOTE)
-     - [`<your-vm-ip-address>`](vm.md#your-vm-ip-address) if you run on your laptop (LOCAL)
-   - `<qwen-api-port>` with the value of `HOST_PORT`
-   - `<qwen-api-key>` with the value of `QWEN_API_KEY`
-   - `<qwen-model>` with one of the available models:
+   - [`<qwen-code-api-base-url>`](#qwen-code-api-base-url-placeholder) (depends on the case (REMOTE or LOCAL))
+   - `<qwen-code-api-key>` with the value of [`QWEN_CODE_API_KEY`](./qwen-code-api-dotenv-secret.md#qwen_code_api_key) from [`qwen-code-api/.env.secret`](./qwen-code-api-dotenv-secret.md#about-qwen-code-apienvsecret)
+   - `<qwen-model>` with one of the [available models](./qwen-code.md#view-available-models)
 
-     - `coder-model` — `Qwen 3.5 Plus` (recommended).
-     - `qwen3-coder-plus` — `Qwen 3 Coder Plus`.
-     - `qwen3-coder-flash` — `Qwen 3 Coder Flash` (faster).
-
-3. When you run it, the output should be similar to this:
+2. When you run it, the output should be similar to this:
 
    ```terminal
    {
-      "created": 1773379590,
+      "created": 1773942368,
       "usage": {
-         "completion_tokens": 8,
-         "prompt_tokens": 15,
+         "completion_tokens": 165,
+         "prompt_tokens": 22,
+         "completion_tokens_details": {
+            "text_tokens": 165,
+            "reasoning_tokens": 152
+         },
          "prompt_tokens_details": {
+            "cache_creation": {
+               "ephemeral_5m_input_tokens": 0
+            },
+            "text_tokens": 22,
+            "cache_creation_input_tokens": 0,
+            "cache_type": "ephemeral",
             "cached_tokens": 0
          },
-         "total_tokens": 23
+         "total_tokens": 187
       },
-      "model": "qwen3-coder-plus",
-      "id": "chatcmpl-9c04fd89-7d16-469f-af7b-8e64a9418bb3",
+      "model": "qwen3.5-plus",
+      "id": "chatcmpl-c80dbef9-d5cd-4ee1-8a1e-bc462e19b20e",
       "choices": [
          {
             "finish_reason": "stop",
             "index": 0,
             "message": {
-            "role": "assistant",
-            "content": "2 + 2 = 4."
-            }
+               "role": "assistant",
+               "content": "2 + 2 equals **4**.",
+               "reasoning_content": "... **Final Output:** \"4\" or \"2 + 2 equals 4.\" ..."
+            },
+            "logprobs": null
          }
       ],
+      "system_fingerprint": null,
       "object": "chat.completion"
    }
    ```

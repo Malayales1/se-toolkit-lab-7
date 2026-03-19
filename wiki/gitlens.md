@@ -87,7 +87,7 @@ See [Open the commit graph](#open-the-commit-graph).
 
    <img alt="View Commits" src="./images/gitlens/view-commits.png" style="width:400px"></img>
 3. Look at something like `- on <branch> fetched 1 minute ago`.
-4. Below that text are the commits on the `<branch>`.
+4. Below that text are the commits on the branch [`<branch>`](./git.md#branch-placeholder).
 5. Here, the latest not pushed commit is highlighted:
 
    <img alt="Latest commit" src="./images/gitlens/view-commits-latest.png" style="width:400px"></img>

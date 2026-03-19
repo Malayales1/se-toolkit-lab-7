@@ -9,15 +9,16 @@
   - [`iOS`](#ios)
   - [`Windows`](#windows)
     - [`WSL`](#wsl)
-- [Program](#program)
 - [Process](#process)
   - [Background process](#background-process)
   - [PID](#pid)
 - [Service](#service)
 - [User](#user)
   - [Username](#username)
-  - [`<username>` placeholder](#username-placeholder)
+  - [`<user>` placeholder](#user-placeholder)
 - [Group](#group)
+  - [Group name](#group-name)
+  - [`<user-group>` placeholder](#user-group-placeholder)
 - [Permission](#permission)
 
 ## What is an operating system
@@ -34,19 +35,19 @@ It handles memory allocation, process scheduling, file systems, and device I/O, 
 
 ### `Linux`
 
-`Linux` is an [open-source](./software-types.md#software-types) operating system commonly used for servers and [virtual machines](./vm.md).
+`Linux` is an [open-source](./software-distribution.md#open-source-software) operating system commonly used for servers and [virtual machines](./vm.md).
 
 See [`Linux`](./linux.md) for more details.
 
 ### `macOS`
 
-`macOS` is `Apple`'s [proprietary](./software-types.md#proprietary-software) operating system for `Mac` computers.
+`macOS` is `Apple`'s [proprietary](./software-distribution.md#proprietary-software) operating system for `Mac` computers.
 
 It is based on `Unix`, so many command-line tools and workflows that work on `Linux` also work on `macOS`.
 
 ### `iOS`
 
-`iOS` is `Apple`'s [proprietary](./software-types.md#proprietary-software) operating system for `iPhone`s and `iPad`s.
+`iOS` is `Apple`'s [proprietary](./software-distribution.md#proprietary-software) operating system for `iPhone`s and `iPad`s.
 
 Like `macOS`, it is based on `Darwin` (a `Unix`-like core), but it is designed for mobile devices with touchscreens rather than desktop computers.
 
@@ -60,7 +61,7 @@ Students on `Windows` can use [`WSL`](#wsl) to run a `Linux` environment.
 
 #### `WSL`
 
-`WSL` (Windows Subsystem for `Linux`) is a feature of `Windows` that lets you run a `Linux` environment directly on `Windows`, without a virtual machine.
+`WSL` (Windows Subsystem for `Linux`) is a feature of `Windows` that lets you run a [`Linux`](#linux) environment directly on `Windows`, without a [virtual machine](./vm.md#what-is-a-vm).
 
 Docs:
 
@@ -69,17 +70,9 @@ Docs:
 > [!TIP]
 > To use `WSL` with `VS Code`, see [(`Windows` only) Set up running `VS Code` in `WSL`](./vs-code.md#windows-only-set-up-running-vs-code-in-wsl).
 
-## Program
-
-A program is an executable file containing instructions that can be run by the operating system.
-
-It's a static entity stored on disk that becomes a [process](#process) when executed.
-
-Programs can be compiled binaries, scripts, or other executable files that perform specific tasks when run by a user or system.
-
 ## Process
 
-A process is an instance of a running [program](#program).
+A process is an instance of a running [program](./software-types.md#program).
 
 When you execute a program, the operating system creates a process that contains the program's code, memory space, variables, and system resources. Each process has a unique process ID (PID) and runs independently of other processes.
 
@@ -113,7 +106,7 @@ A service is a long-running [process](#process) that performs specific system fu
 
 Services typically start automatically during system boot and run in the background without direct user interaction. They can be managed using system service managers like `systemd`, `init`, or service scripts.
 
-Common examples include [web servers](./web-infrastructure.md#web-server), [database servers](./database.md#database-server) (`MySQL`/`PostgreSQL`), [`SSH` daemons](./ssh.md#ssh-daemon), and network services.
+Common examples include [web servers](./web-infrastructure.md#web-server), [database servers](./database.md#database-server) (`MySQL`/`PostgreSQL`), [`SSH` daemons](./ssh.md#sshd), and network services.
 
 Services often [listen on specific ports](./computer-networks.md#listen-on-a-port) to handle incoming requests.
 
@@ -129,9 +122,11 @@ Each user has a [username](#username) and a set of [permissions](#permission) th
 
 A username is the unique name that identifies a [user](#user) account on the operating system. It is used when logging in to the system.
 
-### `<username>` placeholder
+### `<user>` placeholder
 
 The [username](#username) (without `<` and `>`).
+
+Replace this placeholder with `admin`.
 
 ## Group
 
@@ -140,6 +135,16 @@ A group is a collection of [users](#user) that share the same [access permission
 Groups allow an administrator to manage permissions for multiple users at once: adding a user to a group grants them all the group's permissions.
 
 Each user has a primary group and can belong to additional supplementary groups.
+
+### Group name
+
+A group name is the unique name that identifies a [group](#group) on the operating system. It is used when managing group membership and [permissions](#permission).
+
+### `<user-group>` placeholder
+
+The [group name](#group-name) (without `<` and `>`) that coincides with the [`<user>`](#user-placeholder).
+
+The user `<user>` is in the [group](#group) `<user-group>`.
 
 ## Permission
 

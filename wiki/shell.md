@@ -12,6 +12,9 @@
 - [Shell profile](#shell-profile)
   - [Reload the shell profile](#reload-the-shell-profile)
 - [Shell prompt](#shell-prompt)
+  - [Type the password for the user](#type-the-password-for-the-user)
+- [Shell session](#shell-session)
+  - [Exit the shell session](#exit-the-shell-session)
 - [Shell command](#shell-command)
 - [Current working directory](#current-working-directory)
   - [Show the current working directory (full path)](#show-the-current-working-directory-full-path)
@@ -102,17 +105,53 @@ Common profile files:
 ## Shell prompt
 
 The shell prompt is the text the shell displays before each command, indicating it is ready to accept input.
-It typically shows the current [user](./operating-system.md#user), machine name, and [working directory](#current-working-directory).
 
-A typical `bash` prompt looks like:
+It typically shows the current [user](./operating-system.md#user), machine name, and the [current working directory](#current-working-directory).
 
-```terminal
-username@hostname:~/directory$
-```
+Examples:
+
+- [`SSH` shell prompt](./ssh.md#ssh-shell-prompt)
+
+### Type the password for the user
 
 > [!NOTE]
-> The `$` at the end indicates a regular user.
-> A `#` indicates the [root](./linux.md#the-root-user) (admin) user.
+> The [shell prompt](#shell-prompt) usually specifies which user
+> you should write the password for.
+
+1. When prompted for a password:
+
+   1. Find the password for the user (e.g., in your password manager).
+
+   2. Type the password for the user.
+
+      > 🟦 **Note**
+      >
+      > The [shell](./shell.md#what-is-a-shell) won't show what you type.
+
+   3. Press `Enter`.
+
+## Shell session
+
+A shell session is the active period of a running [shell](#what-is-a-shell).
+It starts when you open a terminal or connect via [`SSH`](./ssh.md#what-is-ssh), and ends when you exit.
+
+For its duration, the session preserves state such as the current [working directory](#current-working-directory) and command history.
+
+### Exit the shell session
+
+1. To exit the shell session that you started in the [`VS Code Terminal`](./vs-code.md#vs-code-terminal),
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   exit
+   ```
+
+> [!NOTE]
+> Pressing `Ctrl+D` also exits the session.
+
+> [!NOTE]
+> If you are in an [`SSH` shell](./ssh.md#ssh-shell), `exit` closes the connection and returns to your local shell.
 
 ## Shell command
 

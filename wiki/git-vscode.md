@@ -4,8 +4,8 @@
 
 - [What is `Git` in `VS Code`](#what-is-git-in-vs-code)
 - [Clone the repository](#clone-the-repository)
-  - [Clone the repo using the `VS Code Terminal`](#clone-the-repo-using-the-vs-code-terminal)
-  - [Clone the repo using the `Command Palette`](#clone-the-repo-using-the-command-palette)
+  - [Clone the repository using the `VS Code Terminal`](#clone-the-repository-using-the-vs-code-terminal)
+  - [Clone the repository using the `Command Palette`](#clone-the-repository-using-the-command-palette)
 - [Switch to the `<branch>`](#switch-to-the-branch)
   - [Switch to the `<branch>` using the `VS Code Terminal`](#switch-to-the-branch-using-the-vs-code-terminal)
   - [Switch to the `<branch>` using `GitLens`](#switch-to-the-branch-using-gitlens)
@@ -13,7 +13,11 @@
   - [Switch to a new branch using `GitHub`](#switch-to-a-new-branch-using-github)
   - [Switch to a new branch using the `VS Code Terminal`](#switch-to-a-new-branch-using-the-vs-code-terminal)
   - [Switch to a new branch using `GitLens`](#switch-to-a-new-branch-using-gitlens)
+- [Fetch the latest changes using the `VS Code Terminal`](#fetch-the-latest-changes-using-the-vs-code-terminal)
 - [Detect conflicts](#detect-conflicts)
+  - [Detect conflicts using the `VS Code Terminal`](#detect-conflicts-using-the-vs-code-terminal)
+  - [Detect conflicts using `GitLens`](#detect-conflicts-using-gitlens)
+- [Hard reset the `<branch>`](#hard-reset-the-branch)
 - [Resolve a merge conflict](#resolve-a-merge-conflict)
   - [Resolve a merge conflict using `VS Code`](#resolve-a-merge-conflict-using-vs-code)
   - [Resolve a merge conflict using `GitLens`](#resolve-a-merge-conflict-using-gitlens)
@@ -24,7 +28,7 @@
 - [Pull changes from `<branch>` on `<remote>` and rebase](#pull-changes-from-branch-on-remote-and-rebase)
   - [Pull and rebase using the `VS Code Terminal`](#pull-and-rebase-using-the-vs-code-terminal)
   - [Pull and rebase using `GitLens`](#pull-and-rebase-using-gitlens)
-- [Stage using the `Source Control`](#stage-using-the-source-control)
+- [Stage changes using the `Source Control`](#stage-changes-using-the-source-control)
   - [Stage all changes in a specific file](#stage-all-changes-in-a-specific-file)
   - [Stage all changes in specific files](#stage-all-changes-in-specific-files)
   - [Stage specific changes in a specific file](#stage-specific-changes-in-a-specific-file)
@@ -57,12 +61,12 @@ Docs:
 > See [`<repo-url>`](./github.md#repo-url), [`<repo-name>`](./github.md#repo-name).
 
 <!-- no toc -->
-- Method 1: [Clone the repo using the `VS Code Terminal`](#clone-the-repo-using-the-vs-code-terminal)
-- Method 2: [Clone the repo using the `Command Palette`](#clone-the-repo-using-the-command-palette)
+- Method 1: [Clone the repository using the `VS Code Terminal`](#clone-the-repository-using-the-vs-code-terminal)
+- Method 2: [Clone the repository using the `Command Palette`](#clone-the-repository-using-the-command-palette)
 
-### Clone the repo using the `VS Code Terminal`
+### Clone the repository using the `VS Code Terminal`
 
-1. To clone the repo,
+1. To clone the repository,
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
@@ -72,42 +76,40 @@ Docs:
 
    Replace:
 
-   - [`<repo-url>`](./github.md#repo-url).
-   - `<repo-path>` with the path where you want to clone the repo.
+   - [`<repo-url>`](./github.md#repo-url)
+   - `<repo-path>` with the path where you want to clone the repository
 
    Example:
 
    ```terminal
-   git clone https://github.com/inno-se-toolkit/se-toolkit-lab-6 ~/software-engineering-toolkit
+   git clone https://github.com/microsoft/vscode ~/vscode
    ```
 
    See [Home directory (`~`)](./file-system.md#home-directory-).
 
-2. If `Git` asks for a password, provide [your `GitHub` PAT](./github.md#create-a-pat-classic).
+   > <h3>Troubleshooting</h3>
+   >
+   > [**`git` asks for a password**](./github.md#git-asks-for-a-password)
+   >
+   > [**`fatal: destination path <directory-path> already exists and is not an empty directory.`**](./github.md#fatal-destination-path-directory-path-already-exists-and-is-not-an-empty-directory)
 
-3. To verify that the repo was cloned,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   ls
-   ```
-
-   The output should include the `<repo-name>` - the name of the repo.
-
-4. To verify that the repo isn't empty,
+2. To verify that the repository isn't empty,
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   ls <repo-name>
+   ls <repo-path>
    ```
-  
-   Replace [`<repo-name>`](./github.md#repo-name).
 
-   The output should be the list of names of files in the repo.
+   The output should be the list of names of files in the repository.
 
-### Clone the repo using the `Command Palette`
+   Example:
+
+   ```terminal
+   ls ~/vscode
+   ```
+
+### Clone the repository using the `Command Palette`
 
 1. [Run using the `Command Palette`](./vs-code.md#run-a-command-using-the-command-palette):
    `Git: Clone`.
@@ -115,7 +117,7 @@ Docs:
 3. Allow the extension to sign in.
 4. Paste the [`<repo-url>`](./github.md#repo-url).
 5. [Select](./vs-code.md#select-an-option-from-a-list) the repo.
-6. Choose a directory where to clone the repo.
+6. Choose a directory where to clone the repository.
 7. Confirm the choice.
 
 ## Switch to the `<branch>`
@@ -133,6 +135,8 @@ Docs:
    ```terminal
    git switch <branch>
    ```
+
+   Replace the placeholder [`<branch>`](./git.md#branch-placeholder).
 
    Example:
 
@@ -193,15 +197,87 @@ Docs:
 5. [Select](./vs-code.md#select-an-option-from-a-list)
    `Create & Switch to Branch`.
 
+## Fetch the latest changes using the `VS Code Terminal`
+
+1. [Switch to the `<branch>`](#switch-to-a-new-branch-using-the-vs-code-terminal).
+
+2. To fetch the latest changes from `<remote>`,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   git fetch <remote> <branch>
+   ```
+
+   Replace the placeholders:
+
+   - [`<remote>`](./git.md#remote-placeholder)
+   - [`<branch>`](./git.md#branch-placeholder)
+
+   Example:
+
+   ```terminal
+   git fetch origin main
+   ```
+
 ## Detect conflicts
 
-It can happen that commits in [`<branch>`](./git.md#branch) on [`<remote>`](./git.md#remote) are different from commits on the `<branch>` in the cloned repo on your computer.
+It can happen that commits in [`<branch>`](./git.md#branch) on [`<remote>`](./git.md#remote-placeholder) are different from commits on the `<branch>` in the cloned repo on your computer.
+
+- Method 1: [Detect conflicts using `GitLens`](#detect-conflicts-using-gitlens)
+- Method 2: [Detect conflicts using the `VS Code Terminal`](#detect-conflicts-using-the-vs-code-terminal)
+
+### Detect conflicts using the `VS Code Terminal`
+
+1. [Fetch the latest changes using the `VS Code Terminal`](#fetch-the-latest-changes-using-the-vs-code-terminal).
+
+2. To compare the local [`<branch>`](./git.md#branch-placeholder) with the `<branch>` on `<remote>`,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   git status
+   ```
+
+   If the output contains `Your branch is behind`, `Your branch is ahead`, or `have diverged`, there are differences between the local and remote branches.
+
+### Detect conflicts using `GitLens`
 
 1. Look at the [`Status Bar`](./vs-code.md#status-bar).
 
    <img alt="Commit Conflict" src="./images/vs-code/status-bar-commit-conflict.png" style="width:400px"></img>
 
    You should see that there is a non-zero number of commits to pull from `<branch>` on `<remote>`.
+
+## Hard reset the `<branch>`
+
+> [!NOTE]
+>
+> This operation will make your local `<branch>` match the `<branch>` on `<remote>`.
+
+> [!CAUTION]
+> This operation discards all uncommitted changes and local commits that are not on the [`<remote>`](./git.md#remote-placeholder).
+
+1. [Fetch the latest changes](#fetch-the-latest-changes-using-the-vs-code-terminal).
+
+2. To hard reset the local `<branch>`,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   git reset --hard <remote>/<branch>
+   ```
+
+   Replace the placeholders:
+
+   - [`<remote>`](./git.md#remote-placeholder)
+   - [`<branch>`](./git.md#branch-placeholder)
+
+   Example:
+
+   ```terminal
+   git reset --hard origin/main
+   ```
 
 ## Resolve a merge conflict
 
@@ -298,7 +374,7 @@ For each conflicting file, complete the following steps:
 ## Pull changes from the `<branch>` on `<remote>`
 
 > [!NOTE]
-> See [`<branch>`](./git.md#branch), [`<remote>`](./git.md#remote).
+> See [`<branch>`](./git.md#branch), [`<remote>`](./git.md#remote-placeholder).
 
 <!-- no toc -->
 - Method 1: [Pull changes from `<branch>` on `<remote>` using the `VS Code Terminal`](#pull-changes-from-branch-on-remote-using-the-vs-code-terminal)
@@ -347,7 +423,9 @@ For each conflicting file, complete the following steps:
    git pull --rebase origin main
    ```
 
-2. If `Git` asks for a password, provide [your `GitHub` PAT](./github.md#create-a-pat-classic).
+   > <h3>Troubleshooting</h3>
+   >
+   > [**`git` asks for a password**](./github.md#git-asks-for-a-password)
 
 ### Pull and rebase using `GitLens`
 
@@ -357,7 +435,7 @@ For each conflicting file, complete the following steps:
    `Pull with Rebase`.
 3. If `GitLens` does not show any error, the rebase is complete.
 
-## Stage using the `Source Control`
+## Stage changes using the `Source Control`
 
 <!-- no toc -->
 - Method 1: [Stage all changes in a specific file](#stage-all-changes-in-a-specific-file)
@@ -366,11 +444,18 @@ For each conflicting file, complete the following steps:
 
 ### Stage all changes in a specific file
 
-<!-- TODO click + near the name -->
+1. [Open the `Source Control`](./vs-code.md#open-the-source-control).
+2. Go to `Changes`.
+3. Hover over the file name.
+4. Click the `+` icon next to the file name.
 
 ### Stage all changes in specific files
 
-<!-- TODO select and click + -->
+1. [Open the `Source Control`](./vs-code.md#open-the-source-control).
+2. Go to `Changes`.
+3. Select multiple files by holding `Ctrl` and clicking each file.
+4. Right mouse click the selected files.
+5. Click `Stage Changes`.
 
 ### Stage specific changes in a specific file
 
@@ -447,11 +532,8 @@ For each conflicting file, complete the following steps:
 
 ### Commit using `Source Control`
 
-1. [Open the `Source Control`](./vs-code.md#open-the-source-control).
-2. Go to `Changes`.
-3. Hover over a file name.
-4. Click `+` to stage the file.
-5. [Commit staged changes](#commit-staged-changes).
+1. [Stage changes using the `Source Control`](#stage-changes-using-the-source-control).
+2. [Commit staged changes](#commit-staged-changes).
 
 #### Commit staged changes
 

@@ -3,8 +3,9 @@
 <h2>Table of contents</h2>
 
 - [What is `Git`](#what-is-git)
-- [What is remote](#what-is-remote)
-  - [`<remote>`](#remote)
+- [Repository](#repository)
+- [Remote](#remote)
+  - [`<remote>` placeholder](#remote-placeholder)
 - [Root directory of the repository](#root-directory-of-the-repository)
 - [Commit](#commit)
   - [Commit hash](#commit-hash)
@@ -38,9 +39,15 @@ Docs:
 - [Git Reference](https://git-scm.com/doc)
 - [Git Cheat Sheet](https://git-scm.com/cheat-sheet)
 
-## What is remote
+## Repository
 
-A remote is a version of your [repository](./github.md#repository) hosted on a [remote host](./computer-networks.md#remote-host) (e.g., on [`GitHub`](./github.md#what-is-github)).
+A repository (or "repo") is a storage location for files that are version-controlled using [`Git`](./git.md#what-is-git).
+
+Example: [`GitHub` repository](./github.md#github-repository)
+
+## Remote
+
+A remote (remote repository) is a version of your [repository](./git.md#repository) hosted on a [remote host](./computer-networks.md#remote-host), e.g. [`GitHub`](./github.md#what-is-github).
 
 Remotes let you push and pull changes between your local repository and the remote host.
 
@@ -52,9 +59,9 @@ Docs:
 
 See also [`upstream`](./github.md#upstream) and [`origin`](./github.md#origin).
 
-### `<remote>`
+### `<remote>` placeholder
 
-A [remote](#what-is-remote) name (without `<` and `>`).
+A [remote](#remote) name (without `<` and `>`).
 
 Common remote names:
 
@@ -122,15 +129,13 @@ Docs:
 
 ### `main` branch
 
-`main` is the default branch of a repository.
+`main` is typically the default branch of a [repository](./git.md#repository).
+
 It represents the stable, up-to-date state of the project.
-All feature branches are created from `main` and merged back into it via a pull request.
 
 ### `<branch>` placeholder
 
-A branch name (without `<` and `>`).
-
-Alternatively, a `Git` branch.
+A [`Git` branch](#branch) name (without `<` and `>`).
 
 Examples:
 
@@ -213,7 +218,10 @@ See [Resolve a merge conflict](./git-vscode.md#resolve-a-merge-conflict).
 
 The `.gitignore` file allows you to specify which files shouldn't be added to the repo.
 
-Example: [`.gitignore`](../.gitignore)
+Examples:
+
+- [`.gitignore`](../.gitignore)
+- [`frontend/.gitignore`](../frontend/.gitignore)
 
 Common ignored files:
 

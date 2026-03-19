@@ -49,6 +49,12 @@ Read before making changes:
 
 - [`contributing/conventions/writing/lab-plan.md`](../writing/lab-plan.md) — lab plan structure, learning outcomes, task descriptions, and checklist
 
+## When editing `instructors/meetings/`
+
+Read before making changes:
+
+- [`contributing/conventions/meetings/meeting-report.md`](../meetings/meeting-report.md) — meeting report structure, sections, consensus values, and transcript coverage rules
+
 ## Other files
 
-Do NOT apply task/wiki conventions to files under `instructors/` (internal design notes), except for `instructors/lab-plan.md` which has its own convention (see above).
+Do NOT apply task/wiki conventions to files under `instructors/` (internal design notes). If you are unsure which conventions apply, ask before making changes.

@@ -1,12 +1,10 @@
 # Adapted from https://github.com/astral-sh/uv-docker-example/blob/fa761744819c05f4ce207bde1f0a396f6be3915f/multistage.Dockerfile
 # Also see https://docs.astral.sh/uv/guides/integration/docker/
 
-# An example using multi-stage image builds to create a final image without uv.
+# ---
+# Stage 1: build the application in the `/app` directory.
+# ---
 
-# First, build the application in the `/app` directory.
-# See `Dockerfile` for details.
-# REGISTRY_PREFIX: empty for Docker Hub, or university harbor cache.
-# Set via docker-compose build args or --build-arg.
 ARG REGISTRY_PREFIX=harbor.pg.innopolis.university/docker-hub-cache/
 FROM ${REGISTRY_PREFIX}astral/uv:python3.14-bookworm-slim AS builder
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
@@ -32,8 +30,10 @@ COPY pyproject.toml uv.lock /app/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
 
+# ---
+# Stage 2: use a final image without uv
+# ---
 
-# Then, use a final image without uv
 ARG REGISTRY_PREFIX=harbor.pg.innopolis.university/docker-hub-cache/
 FROM ${REGISTRY_PREFIX}python:3.14.2-slim-bookworm
 # It is important to use the image that matches the builder, as the path to the

@@ -5,6 +5,8 @@ services:
       args:
         REGISTRY_PREFIX: ${REGISTRY_PREFIX:-harbor.pg.innopolis.university/docker-hub-cache/}
     restart: unless-stopped
+    networks:
+      - lms-network
     ports:
       - ${APP_HOST_ADDRESS:?'APP_HOST_ADDRESS is required'}:${APP_HOST_PORT:?'APP_HOST_PORT is required'}:${APP_CONTAINER_PORT}
     expose:
@@ -18,8 +20,8 @@ services:
       - APP_ENABLE_INTERACTIONS=${APP_ENABLE_INTERACTIONS:?'APP_ENABLE_INTERACTIONS is required'}
       - APP_ENABLE_LEARNERS=${APP_ENABLE_LEARNERS:?'APP_ENABLE_LEARNERS is required'}
       - AUTOCHECKER_API_URL=${AUTOCHECKER_API_URL:?'AUTOCHECKER_API_URL is required'}
-      - AUTOCHECKER_EMAIL=${AUTOCHECKER_EMAIL:?'AUTOCHECKER_EMAIL is required'}
-      - AUTOCHECKER_PASSWORD=${AUTOCHECKER_PASSWORD:?'AUTOCHECKER_PASSWORD is required'}
+      - AUTOCHECKER_API_LOGIN=${AUTOCHECKER_API_LOGIN:?'AUTOCHECKER_API_LOGIN is required'}
+      - AUTOCHECKER_API_PASSWORD=${AUTOCHECKER_API_PASSWORD:?'AUTOCHECKER_API_PASSWORD is required'}
       - DB_HOST=${CONST_POSTGRESQL_SERVICE_NAME:?'CONST_POSTGRESQL_SERVICE_NAME is required'}
       - DB_PORT=${CONST_POSTGRESQL_DEFAULT_PORT:?'CONST_POSTGRESQL_DEFAULT_PORT is required'}
       - DB_NAME=${POSTGRES_DB:?'POSTGRES_DB is required'}
@@ -32,6 +34,8 @@ services:
   postgres:
     image: ${REGISTRY_PREFIX:-harbor.pg.innopolis.university/docker-hub-cache/}postgres:18.3-alpine
     restart: unless-stopped
+    networks:
+      - lms-network
     environment:
       - POSTGRES_DB=${POSTGRES_DB:?'POSTGRES_DB is required'}
       - POSTGRES_USER=${POSTGRES_USER:?'POSTGRES_USER is required'}
@@ -54,9 +58,12 @@ services:
   pgadmin:
     image: ${REGISTRY_PREFIX:-harbor.pg.innopolis.university/docker-hub-cache/}dpage/pgadmin4:latest
     restart: unless-stopped
+    networks:
+      - lms-network
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL:?'PGADMIN_EMAIL is required'}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD:?'PGADMIN_PASSWORD is required'}
+      - SCRIPT_NAME=/utils/pgadmin
     ports:
       - ${PGADMIN_HOST_ADDRESS:?'PGADMIN_HOST_ADDRESS is required'}:${PGADMIN_HOST_PORT:?'PGADMIN_HOST_PORT is required'}:80
     depends_on:
@@ -68,15 +75,23 @@ services:
       context: frontend/
       args:
         REGISTRY_PREFIX: ${REGISTRY_PREFIX:-harbor.pg.innopolis.university/docker-hub-cache/}
+    networks:
+      - lms-network
     depends_on:
       - app
     environment:
       - CADDY_CONTAINER_PORT=${CADDY_CONTAINER_PORT:?'CADDY_CONTAINER_PORT is required'}
       - APP_CONTAINER_PORT=${APP_CONTAINER_PORT:?'APP_CONTAINER_PORT is required'}
+      - QWEN_CODE_API_URL=${QWEN_CODE_API_URL:?'QWEN_CODE_API_URL is required'}
     ports:
-      - ${CADDY_HOST_ADDRESS:?'CADDY_HOST_ADDRESS is required'}:${CADDY_HOST_PORT:?'CADDY_HOST_PORT is required'}:${CADDY_CONTAINER_PORT}
+      - ${LMS_API_HOST_ADDRESS:?'LMS_API_HOST_ADDRESS is required'}:${LMS_API_HOST_PORT:?'LMS_API_HOST_PORT is required'}:${CADDY_CONTAINER_PORT}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
 
 volumes:
   postgres_data:
+
+networks:
+  lms-network:
+    name: lms-network
+    attachable: true

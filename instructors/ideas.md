@@ -1,30 +1,30 @@
 # Ideas
 
 - [Course - TODO](#course---todo)
-- [Lab 5 - TODO](#lab-5---todo)
-  - [Lab 5 - TODO - Backlog](#lab-5---todo---backlog)
-  - [Lab 5 - TODO - Repo](#lab-5---todo---repo)
-  - [Lab 5 - TODO - Conventions](#lab-5---todo---conventions)
-  - [Lab 5 - TODO - Config](#lab-5---todo---config)
-  - [Lab 5 - TODO - Skills](#lab-5---todo---skills)
-  - [Lab 5 - TODO - Instructors](#lab-5---todo---instructors)
-  - [Lab 5 - TODO - Wiki](#lab-5---todo---wiki)
-  - [Lab 5 - TODO - Docs](#lab-5---todo---docs)
-  - [Lab 5 - TODO - Contributing](#lab-5---todo---contributing)
-  - [Lab 5 - TODO - Git workflow](#lab-5---todo---git-workflow)
-  - [Lab 5 - TODO - Autochecker](#lab-5---todo---autochecker)
-  - [Lab 5 - TODO - Setup](#lab-5---todo---setup)
-  - [Lab 5 - TODO - Task 1](#lab-5---todo---task-1)
-  - [Lab 5 - TODO - Task 2](#lab-5---todo---task-2)
-  - [Lab 5 - TODO - Task 3](#lab-5---todo---task-3)
-  - [Lab 5 - TODO - VM](#lab-5---todo---vm)
-  - [Lab 5 - TODO - VS Code](#lab-5---todo---vs-code)
-  - [Lab 5 - TODO - Architecture](#lab-5---todo---architecture)
-- [Lab 5 - DONE](#lab-5---done)
-  - [Lab 5 - DONE - Repository](#lab-5---done---repository)
-  - [Lab 5 - DONE - Conventions](#lab-5---done---conventions)
-  - [Lab 5 - DONE - Skills](#lab-5---done---skills)
-  - [Lab 5 - DONE - Instructors](#lab-5---done---instructors)
+- [Current lab - TODO](#current-lab---todo)
+  - [Current lab - TODO - Backlog](#current-lab---todo---backlog)
+  - [Current lab - TODO - Repo](#current-lab---todo---repo)
+  - [Current lab - TODO - Conventions](#current-lab---todo---conventions)
+  - [Current lab - TODO - Config](#current-lab---todo---config)
+  - [Current lab - TODO - Skills](#current-lab---todo---skills)
+  - [Current lab - TODO - Instructors](#current-lab---todo---instructors)
+  - [Current lab - TODO - Wiki](#current-lab---todo---wiki)
+  - [Current lab - TODO - Docs](#current-lab---todo---docs)
+  - [Current lab - TODO - Contributing](#current-lab---todo---contributing)
+  - [Current lab - TODO - Git workflow](#current-lab---todo---git-workflow)
+  - [Current lab - TODO - Autochecker](#current-lab---todo---autochecker)
+  - [Current lab - TODO - Setup](#current-lab---todo---setup)
+  - [Current lab - TODO - Task 1](#current-lab---todo---task-1)
+  - [Current lab - TODO - Task 2](#current-lab---todo---task-2)
+  - [Current lab - TODO - Task 3](#current-lab---todo---task-3)
+  - [Current lab - TODO - VM](#current-lab---todo---vm)
+  - [Current lab - TODO - VS Code](#current-lab---todo---vs-code)
+  - [Current lab - TODO - Architecture](#current-lab---todo---architecture)
+- [Current lab - DONE](#current-lab---done)
+  - [Current lab - DONE - Repository](#current-lab---done---repository)
+  - [Current lab - DONE - Conventions](#current-lab---done---conventions)
+  - [Current lab - DONE - Skills](#current-lab---done---skills)
+  - [Current lab - DONE - Instructors](#current-lab---done---instructors)
 - [Lab Observability - TODO](#lab-observability---todo)
   - [Lab Observability - TODO - Backlog](#lab-observability---todo---backlog)
   - [Lab Telegram Bot - TODO - Task 2](#lab-telegram-bot---todo---task-2)
@@ -37,17 +37,17 @@
 
 - Define outcomes in instructors/course.md
 
-## Lab 5 - TODO
+## Current lab - TODO
 
-### Lab 5 - TODO - Backlog
+### Current lab - TODO - Backlog
 
-### Lab 5 - TODO - Repo
+### Current lab - TODO - Repo
 
 - agents.md
 - remember to use .agents
 - switch to pnpm
 
-### Lab 5 - TODO - Conventions
+### Current lab - TODO - Conventions
 
 - should a section in a sequence of steps assume the previous step?
 - "frontend" and "backend" as nouns
@@ -77,8 +77,10 @@
   Keep Decision 1
 - Remove coverage section
 - Specify severity for violations
+- Allow some duplication in wiki (not DRY)
+  Reuse large sections, inline small sections, refer to them as *Note:* (link to the small section)
 
-### Lab 5 - TODO - Config
+### Current lab - TODO - Config
 
 - .env.docker.secret: update caddy port - should be the biggest
 - pyproject: return test-unit
@@ -87,7 +89,7 @@
 - Fix config after the migration from the older repo
 - Move constants with `CONST_` prefix from `.env.docker.example` to `.env.const`
 
-### Lab 5 - TODO - Skills
+### Current lab - TODO - Skills
 
 - skill /fix-adjacent-links
 - skill /ideate-lab
@@ -109,14 +111,14 @@
   gives the same instructions as explain-step but in Russian
 - skill /rewrite-lab <programming-language>
   
-### Lab 5 - TODO - Instructors
+### Current lab - TODO - Instructors
 
 - add tutorials for skills and devshell tools
 
-### Lab 5 - TODO - Wiki
+### Current lab - TODO - Wiki
 
 - [?] use mdsh for tool output
-- vm docs: is this true? "# This solution won't work outside the University network."
+- vm docs: is this true? "# This solution won't work outside of the University network."
 - [?] vm: describe full vm setup step by step
 - vs-code-lsp.md with examples of go to definition
 - [?] reference vs-code-lsp.md in the python setup
@@ -134,22 +136,23 @@
 - remove "In this project" because they quickly get obsolete
 - replace: `<term>` -> `<term>` placeholder
 - agents.md - explain based on <https://www.salmanq.com/blog/simplest-agent-loop/>
+- parameterize instructions over <user>
 
-### Lab 5 - TODO - Docs
+### Current lab - TODO - Docs
 
 - GitHub Pages with good full-text search
 
-### Lab 5 - TODO - Contributing
+### Current lab - TODO - Contributing
 
 - github workflows: allow PRs with [CONTRIBUTE] prefix
 - github issues: add issue template for bugs in the lab, e.g. [LAB BUG]
 
-### Lab 5 - TODO - Git workflow
+### Current lab - TODO - Git workflow
 
 - tip: suggest students to use `skill commit`
 - update diagram to mention pull from upstream
 
-### Lab 5 - TODO - Autochecker
+### Current lab - TODO - Autochecker
 
 - autochecker API:
   - clarify the formatting of the password
@@ -157,7 +160,7 @@
 - autochecker: check the file submission size
   file attached to an issue on GitHub
 
-### Lab 5 - TODO - Setup
+### Current lab - TODO - Setup
 
 - Remove info about the database table and data
   They were loaded from init.sql in the previous lab
@@ -181,41 +184,43 @@
 
 - install jq via nix
 
-### Lab 5 - TODO - Task 1
+- always clone in ~/
+
+### Current lab - TODO - Task 1
 
 - line break after the curl command
 - update autochecker API
 
-### Lab 5 - TODO - Task 2
+### Current lab - TODO - Task 2
 
 - tasks.test -> tasks.test-unit
 
-### Lab 5 - TODO - Task 3
+### Current lab - TODO - Task 3
 
 - Show histogram
 
-### Lab 5 - TODO - VM
+### Current lab - TODO - VM
 
 - connect by remote ssh - check your ip to understand where you are
 - [?] `Remote-SSH: Connect to Host...`
   - can't find ssh config in Linux
 
-### Lab 5 - TODO - VS Code
+### Current lab - TODO - VS Code
 
 - Default theme - Monokai
 
-### Lab 5 - TODO - Architecture
+### Current lab - TODO - Architecture
 
 - `.env.local.example` - run outside of Docker
   Alternative: enable reload in local development
 
-## Lab 5 - DONE
+## Current lab - DONE
 
-### Lab 5 - DONE - Repository
+### Current lab - DONE - Repository
 
 - [x] Move ideas to the instructors/ideas.md.
 
-### Lab 5 - DONE - Conventions
+### Current lab - DONE - Conventions
 
 - conventions: prohibit agent-specific language in skills
   see contributing/conventions/agents/skills.md
@@ -227,7 +232,7 @@
 - the autochecker -> `Autochecker`
 - review: mark deliverables that are hard to produce without following specific steps.
 
-### Lab 5 - DONE - Skills
+### Current lab - DONE - Skills
 
 - [x] fix /fix-file-by-conventions skill: write title instead of cross-out in the task report.
   Solution: cross-out, then use a skill for clearing
@@ -237,7 +242,7 @@
   
   Solution: We'll add a skill that explains a particular step.
 
-### Lab 5 - DONE - Instructors
+### Current lab - DONE - Instructors
 
 - Rename instructors/lab-design to instructors/meetings
 - Use instructors/meetings just for storing meeting notes, not for the lab design.

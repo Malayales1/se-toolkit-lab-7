@@ -80,10 +80,10 @@ Configuration in [`docker-compose.yml`](../docker-compose.yml):
 - **`build: frontend/`** — builds the [image](./docker.md#image) from the [`Dockerfile`](../frontend/Dockerfile) in the `frontend/` directory.
 - **`depends_on`** — waits for the `app` service to start before starting.
 - **`environment`** — passes [`CADDY_CONTAINER_PORT`](./dotenv-docker-secret.md#caddy_container_port) and [`APP_CONTAINER_PORT`](./dotenv-docker-secret.md#app_container_port) from [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
-- **`ports`** — maps [`CADDY_HOST_ADDRESS`](./dotenv-docker-secret.md#caddy_host_address):[`CADDY_HOST_PORT`](./dotenv-docker-secret.md#caddy_host_port) on the [host](./computer-networks.md#host) to `CADDY_CONTAINER_PORT` inside the [container](./docker.md#container).
+- **`ports`** — maps [`LMS_API_HOST_ADDRESS`](./dotenv-docker-secret.md#lms_api_host_address):[`LMS_API_HOST_PORT`](./dotenv-docker-secret.md#lms_api_host_port) on the [host](./computer-networks.md#host) to `CADDY_CONTAINER_PORT` inside the [container](./docker.md#container).
 - **`volumes`** — mounts [`caddy/Caddyfile`](../caddy/Caddyfile) as the [`Caddy` configuration](./caddy.md#caddyfile).
 
-See [`Caddy` in this project](./caddy.md#caddy-in-this-project) for how the `Caddyfile` routes requests.
+See [`Caddy` duties](./lms-api.md#caddy-duties) for how the `Caddyfile` routes requests.
 
 ## Volumes
 

@@ -26,19 +26,26 @@
 - [4.24. Inline paths](#424-inline-paths)
 - [4.25. Branch-on-remote references](#425-branch-on-remote-references)
 - [4.26. Example IP address](#426-example-ip-address)
-- [4.27. Troubleshooting sections](#427-troubleshooting-sections)
+- [4.27. Troubleshooting](#427-troubleshooting)
+  - [Inline troubleshooting](#inline-troubleshooting)
+  - [Troubleshooting section](#troubleshooting-section)
+  - [Cross-references](#cross-references)
 - [4.28. JSON command output](#428-json-command-output)
+- [4.29. Referring to users of a machine](#429-referring-to-users-of-a-machine)
+- [4.30. Section titles with execution context](#430-section-titles-with-execution-context)
 
 ## 4.1. Instructions wording
 
 - **Navigate somewhere** — `Go to X.`
 - **Click something** — `Click X.`
+- **Type something in a shell or chat** — `Type X.`
 - **Choose an option** — `Method N:` prefix (see [4.6](#46-mini-toc))
 - **Complete all steps** — `Complete these steps:`
 - **Conditional steps** — `If <condition>, complete these steps:`
 
 - **Split compound instructions.** Never write "Do A and do B." Instead, split into two numbered steps.
 - **Finish complete sentences with a `.`**
+- **Write each sentence on its own line.** This makes diffs cleaner and lets individual sentences be referenced by line number.
 
 ## 4.2. Terminal commands
 
@@ -344,7 +351,7 @@ When asking students to replace a single placeholder, include the word "placehol
 **Multiple placeholders — bullet list:**
 
 ~~~markdown
-Replace placeholders:
+Replace the placeholders:
 
 - [`<placeholder-1>`](link-to-explanation)
 - [`<placeholder-2>`](link-to-explanation)
@@ -353,7 +360,7 @@ Replace placeholders:
 **Single placeholder (linked):**
 
 ~~~markdown
-Replace the placeholder [`<placeholder>` placeholder](link-to-explanation).
+Replace the placeholder [`<placeholder>`](link-to-explanation).
 ~~~
 
 **Single placeholder (not linked):**
@@ -464,9 +471,9 @@ Good: `192.0.2.1`
 
 Bad: `192.168.1.1`, `10.0.0.1`
 
-## 4.27. Troubleshooting sections
+## 4.27. Troubleshooting
 
-Use a blockquote for troubleshooting content. Do **not** use `<details>` blocks.
+Use a blockquote for all troubleshooting content. Do **not** use `<details>` blocks.
 
 Start with an `<h3>Troubleshooting</h3>` label. Each issue is a bold sentence followed by its resolution:
 
@@ -482,6 +489,52 @@ Start with an `<h3>Troubleshooting</h3>` label. Each issue is a bold sentence fo
 > Resolution text.
 ```
 
+### Inline troubleshooting
+
+Place a troubleshooting blockquote directly after the step or section it relates to. This is the preferred form when only one or two issues apply to a specific step.
+
+~~~markdown
+1. To connect to the VM,
+
+   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
+
+   ```terminal
+   ssh <user>@<vm-ip>
+   ```
+
+> <h3>Troubleshooting</h3>
+>
+> **Connection refused.**
+>
+> Resolution text.
+~~~
+
+### Troubleshooting section
+
+When troubleshooting applies to the document as a whole — or when there are many issues — place a `## Troubleshooting` section at the **end of the document**. Add it to the table of contents.
+
+```markdown
+## Troubleshooting
+
+> <h3>Troubleshooting</h3>
+>
+> **Issue title**
+>
+> Resolution text.
+```
+
+### Cross-references
+
+When a step's troubleshooting is already covered in a dedicated section of the same file or another file, use a blockquote with one linked bold title per problem instead of duplicating content:
+
+```markdown
+> <h3>Troubleshooting</h3>
+>
+> [**Issue title**](#issue-title)
+>
+> [**Another issue**](#another-issue)
+```
+
 ## 4.28. JSON command output
 
 Always pipe commands that produce `JSON` output to `jq` for readable formatting.
@@ -489,3 +542,41 @@ Always pipe commands that produce `JSON` output to `jq` for readable formatting.
 Good: `curl http://localhost:3000/api/items | jq`
 
 Bad: `curl http://localhost:3000/api/items`
+
+## 4.29. Referring to users of a machine
+
+When referring to a user of a machine in prose, use the pattern "the user `<username>`":
+
+- The administrator user: `the user \`root\``
+- A non-root user placeholder: `the user \`<user>\``
+
+Link on first mention in a section (see [Links and cross-references](#48-links-and-cross-references)):
+
+From a wiki file:
+
+```markdown
+[the user `root`](./linux.md#the-user-root)
+[the user `<user>`](./operating-system.md#user-placeholder)
+```
+
+From a task file:
+
+```markdown
+[the user `root`](../../../wiki/linux.md#the-user-root)
+[the user `<user>`](../../../wiki/operating-system.md#user-placeholder)
+```
+
+## 4.30. Section titles with execution context
+
+When a section contains commands that run on a specific machine, append `(REMOTE)` or `(LOCAL)` to the section title to indicate where the commands should be run:
+
+- `(REMOTE)` — commands run on a remote machine (e.g., a VM accessed via `SSH`).
+- `(LOCAL)` — commands run on the local machine (e.g., the student's own computer).
+
+```markdown
+## Connect to the VM (LOCAL)
+
+## Configure the firewall (REMOTE)
+```
+
+Omit the suffix when the section contains no commands, or when the execution context is unambiguous from the surrounding content (e.g., a file that exclusively covers remote or local operations).

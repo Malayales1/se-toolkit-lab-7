@@ -149,10 +149,10 @@ It is commonly used to format and filter `JSON` output from commands like [`curl
 
 ### Format `JSON` output with `jq`
 
-Pipe the output of any command that returns `JSON` to `jq '.'` to pretty-print it:
+Pipe the output of any command that returns `JSON` to `jq` to pretty-print it:
 
 ```terminal
-curl -s <url> | jq '.'
+curl -s <url> | jq
 ```
 
 ### Common `jq` filters

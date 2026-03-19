@@ -267,6 +267,7 @@ Do not invent specific technology choices, file paths, or implementation details
 
 - Use `---` horizontal rules between tasks within a section.
 - All sentences end with `.`.
+- Each sentence is on its own line.
 - Do not use Markdown tables.
 - Do not include a table of contents in the lab plan document — it is short enough to navigate without one.
 
@@ -376,6 +377,7 @@ Severity guide:
 - [ ] Acceptance criteria use plain bullets (`-`), not checkboxes (`- [ ]`).
 - [ ] `---` rules separate tasks within a section.
 - [ ] All sentences end with `.`.
+- [ ] Each sentence is on its own line.
 - [ ] All required tasks are completable within a single lab session.
 - [ ] No task depends on paid services, complex infrastructure, or unreliable external resources.
 - [ ] Task 1 is approachable for students with limited prior exposure to the topic.

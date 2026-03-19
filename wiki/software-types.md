@@ -4,80 +4,64 @@
 
 - [What is software](#what-is-software)
 - [Source code](#source-code)
-- [Open-source software](#open-source-software)
-- [Proprietary software](#proprietary-software)
-- [Software license](#software-license)
-- [Open-source license](#open-source-license)
-  - [`The MIT License`](#the-mit-license)
-  - [`Apache License, Version 2.0`](#apache-license-version-20)
-  - [`GNU General Public License version 3`](#gnu-general-public-license-version-3)
+- [Program](#program)
+- [Library](#library)
+  - [Shared library](#shared-library)
+- [Executable](#executable)
+- [Application](#application)
+  - [Web application](#web-application)
+- [Tool](#tool)
 
 ## What is software
 
 Software is a set of instructions that tells a computer what to do.
 
-Software can be distributed under different terms — some allows anyone to read, modify, and share its source code (e.g., [open-source software](#open-source-software)), while other software restricts these rights (e.g., [proprietary software](#proprietary-software)).
+Software comes in different forms depending on how it is used — for example, as an executable program, a reusable library, or a web application.
+
+How software may be used, copied, and shared is governed by its [distribution terms](./software-distribution.md#about-software-distribution).
 
 ## Source code
 
 Source code is the human-readable text written by programmers that defines how [software](#what-is-software) behaves. It is written in a programming language (e.g., `Python`, `JavaScript`) and must be translated into machine instructions before a computer can run it.
 
-## Open-source software
+## Program
 
-Open-source software is [software](#what-is-software) whose source code is publicly available for anyone to read, modify, and distribute. The exact conditions are defined in the [open-source license](#open-source-license) for this software.
+A program is [software](#what-is-software) designed to be run directly to perform a specific task.
 
-Open-source projects are often developed collaboratively by communities of contributors. Examples include the [`Linux` operating system](./linux.md#what-is-linux), the [`Git` version control system](./git.md#what-is-git), and the [`Python` programming language](./python.md#what-is-python).
+It is built from [source code](#source-code), may depend on [libraries](#library), and is distributed as an [executable](#executable).
 
-Docs:
+When launched, the program becomes a [process](./operating-system.md#process) managed by the [operating system](./operating-system.md#what-is-an-operating-system).
 
-- [Open Source Initiative — approved licenses](https://opensource.org/licenses)
+## Library
 
-## Proprietary software
+A library is reusable [software](#what-is-software) that provides functionality other programs can use without reimplementing it themselves.
+Libraries are not run directly — they are loaded by a program at startup or during execution.
 
-Proprietary software is [software](#what-is-software) whose source code is not publicly available. The owner controls how it may be used, copied, or modified, and users must agree to a [license](#software-license) that restricts these rights.
+### Shared library
 
-Examples include [`macOS`](./operating-system.md#ios), [`Windows`](./operating-system.md#windows), and [`iOS`](./operating-system.md#ios).
+A shared library is a library stored as a separate file (e.g., `libatomic.so.1` on [`Linux`](./operating-system.md#linux)) and loaded at [runtime](./program-lifecycle.md#runtime) by one or more [programs](#program).
 
-## Software license
+If a required shared library is missing from the system, the program will fail to start.
 
-A software license is a legal agreement that defines how [software](#what-is-software) may be used, copied, modified, and distributed.
+## Executable
 
-Licenses are what make software [open-source](#open-source-software) or [proprietary](#proprietary-software) — the source code itself does not change, but the license determines who can do what with it.
+An executable is a file that contains machine instructions that the [operating system](./operating-system.md#what-is-an-operating-system) can run directly.
 
-## Open-source license
+It is the end product of compiling [source code](#source-code) — for example, `python3` on [`Linux`](./operating-system.md#linux) or `notepad.exe` on [`Windows`](./operating-system.md#windows).
 
-An open-source [license](#software-license) is a [software license](#software-license) that grants anyone the right to use, study, modify, and distribute the software. The specific terms — such as whether modifications must also be [open-source](#open-source-software), or whether the software can be used in [proprietary](#proprietary-software) products — vary by license.
+When run, the executable becomes a [process](./operating-system.md#process).
 
-Common open-source licenses:
+## Application
 
-<!-- no toc -->
-- [The MIT License](#the-mit-license)
-- [Apache License, Version 2.0](#apache-license-version-20)
-- [GNU General Public License version 3](#gnu-general-public-license-version-3)
+An application is [software](#what-is-software) that provides a complete experience to end users.
+It is built from one or more [programs](#program) and [libraries](#library), and may include a [backend](./backend.md#what-is-a-backend), a [frontend](./frontend.md#what-is-frontend), or both.
 
-Statistics:
+### Web application
 
-- [Open Source Initiative — approved licenses](https://opensource.org/licenses)
-- [License Rankings by GitHub](https://innovationgraph.github.com/global-metrics/licenses#license-rankings)
+A web application runs as a [process](./operating-system.md#process) on a [web server](./web-infrastructure.md#web-server).
 
-### `The MIT License`
+The web application is accessed by a [web client](./web-infrastructure.md#web-client) over the [network](./computer-networks.md#what-is-a-network).
 
-`The MIT License` is a permissive [open-source license](#open-source-license). It allows anyone to use, copy, modify, and distribute the software, including in proprietary products, as long as the original license text is included.
+## Tool
 
-Docs:
-
-- [The MIT License](https://opensource.org/license/mit)
-
-### `Apache License, Version 2.0`
-
-The `Apache License, Version 2.0` is a permissive [open-source license](#open-source-license) similar to [`The MIT License`](#the-mit-license). It additionally requires that any modifications be documented and grants users an explicit patent license from the contributors.
-
-- [Apache License, Version 2.0](https://opensource.org/license/apache-2.0)
-
-### `GNU General Public License version 3`
-
-The `GNU General Public License version 3` (`GNU GPL v3`, `GNU GPL`) is a copyleft [open-source license](#open-source-license). It allows anyone to use, modify, and distribute the software, but requires that any distributed modifications also be released under the `GNU GPL`.
-
-This means software built on `GNU GPL` code cannot be turned into [proprietary software](#proprietary-software).
-
-- [GNU General Public License, Version 3](https://www.gnu.org/licenses/gpl-3.0.html)
+A tool is a [program](./software-types.md#program) you run directly on the command line or in your workflow, such as `git`, `python`, or `node`.

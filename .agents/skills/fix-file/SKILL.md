@@ -20,19 +20,7 @@ Fix convention violations in a file using the report produced by `/review-file`.
 2. Derive the report path: `instructors/file-reviews/<repo-root-path>`, where `<repo-root-path>` is the target file's path from the repository root (e.g., `instructors/file-reviews/lab/tasks/required/task-1.md` for `lab/tasks/required/task-1.md`, `instructors/file-reviews/wiki/api.md` for `wiki/api.md`). If the report file does not exist, tell the user to run `/review-file <path>` first and stop.
 4. Read the report file.
 5. Read the target file.
-6. Read the convention files referenced in the report header so every fix is grounded in the actual convention text:
-   - **For `lab/tasks/` files:**
-     - [`contributing/conventions/writing/common.md`](../../../contributing/conventions/writing/common.md)
-     - [`contributing/conventions/writing/tasks.md`](../../../contributing/conventions/writing/tasks.md)
-   - **For `lab/tasks/setup.md` and `lab/tasks/setup-simple.md` (in addition to the above):**
-     - [`contributing/conventions/writing/setup.md`](../../../contributing/conventions/writing/setup.md)
-   - **For `wiki/` files:**
-     - [`contributing/conventions/writing/common.md`](../../../contributing/conventions/writing/common.md)
-     - [`contributing/conventions/writing/wiki.md`](../../../contributing/conventions/writing/wiki.md)
-   - **For `contributing/conventions/` files:**
-     - [`contributing/conventions/conventions.md`](../../../contributing/conventions/conventions.md)
-   - **For `AGENTS.md`:**
-     - [`contributing/conventions/agents/agents.md`](../../../contributing/conventions/agents/agents.md)
+6. Read the convention files for the target file type. Use [`contributing/conventions/agents/authoring.md`](../../../contributing/conventions/agents/authoring.md) to look up which convention files apply.
 7. **If single-fix mode is active:** locate the enclosing finding in the report. Search for the anchor text; if the selection is only a sub-line (e.g., the `**Suggested fix:**` continuation), scan upward in the report to find the opening line of the numbered item (the `N. **[Severity]**…` line) that contains it. Apply the fix described in `**Suggested fix:**` — regardless of whether the finding is Conceptual or Convention. Skip only if the finding is a **TODO** (no content to supply), and note it in the summary. Then go directly to step 12.
 8. **Conceptual findings** cannot be auto-fixed — they require content decisions that only the author can make. List them all as skipped in the summary.
 9. Work through the report **Convention findings** one group at a time. For each violation, apply the minimal edit that resolves it. Use line numbers from the report as a starting guide, but always verify against the current file content (earlier fixes may shift lines).

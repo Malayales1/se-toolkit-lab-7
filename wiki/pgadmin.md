@@ -40,19 +40,23 @@ The port number is the value of [`PGADMIN_HOST_PORT`](./dotenv-docker-secret.md#
 
 ## Open `pgAdmin`
 
-> [!NOTE]
-> The default values are defined in [`.env.docker.example`](../.env.docker.example).
->
-> The actual values are in `.env.docker.secret`.
+1. Open `http://<address>:<pgadmin-port>` in a browser.
 
-1. Open `http://<address>:<pgadmin-port>` in a browser. Replace:
+   Replace the placeholders:
+
    - `<address>` with:
-     - [`localhost`](./computer-networks.md#localhost) if you deployed on your local machine.
-     - [`<your-vm-ip-address>`](vm.md#your-vm-ip-address) if you deployed on [your VM](./vm.md#your-vm);
-   - [`<pgadmin-port>`](#pgadmin-port).
-2. Log in with the credentials from `.env.docker.secret`:
-   - `Email`: the value of `PGADMIN_EMAIL` (default: `admin@example.com`).
-   - `Password`: the value of `PGADMIN_PASSWORD` (default: `admin`).
+
+     - [`localhost`](./computer-networks.md#localhost) if you deployed on your local machine
+
+     - [`<your-vm-ip-address>`](vm.md#your-vm-ip-address-placeholder) if you deployed on [your VM](./vm.md#your-vm)
+
+   - [`<pgadmin-port>`](#pgadmin-port)
+
+2. Log in with the credentials from [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret):
+
+   - `Email`: the value of [`PGADMIN_EMAIL`](./dotenv-docker-secret.md#pgadmin_email)
+
+   - `Password`: the value of [`PGADMIN_PASSWORD`](./dotenv-docker-secret.md#pgadmin_password)
 
 <!-- TODO servers.json -->
 

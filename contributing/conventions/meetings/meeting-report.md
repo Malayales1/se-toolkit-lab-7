@@ -84,7 +84,7 @@ For domain-specific terms, keep the original alongside the English translation i
 ### 3.2. Output format
 
 Write the report in Markdown using the heading structure defined below.
-Write each sentence on its own line so that individual lines can be referenced by line number.
+Write each sentence on its own line (see [Instructions wording](../writing/common.md#41-instructions-wording)).
 
 ### 3.3. Speaker references
 

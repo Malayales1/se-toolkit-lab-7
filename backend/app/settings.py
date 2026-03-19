@@ -21,8 +21,8 @@ class Settings(BaseSettings):
     autochecker_api_url: str = Field(
         default="https://auche.namaz.live", alias="AUTOCHECKER_API_URL"
     )
-    autochecker_email: str = Field(default="", alias="AUTOCHECKER_EMAIL")
-    autochecker_password: str = Field(default="", alias="AUTOCHECKER_PASSWORD")
+    autochecker_email: str = Field(default="", alias="AUTOCHECKER_API_LOGIN")
+    autochecker_password: str = Field(default="", alias="AUTOCHECKER_API_PASSWORD")
 
     db_host: str = Field(default="localhost", alias="DB_HOST")
     db_port: int = Field(default=5432, alias="DB_PORT")

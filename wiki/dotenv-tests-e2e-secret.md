@@ -2,7 +2,7 @@
 
 - [What is `.env.tests.e2e.secret`](#what-is-envtestse2esecret)
 - [`API_BASE_URL`](#api_base_url)
-- [`API_KEY`](#api_key)
+- [`LMS_API_KEY`](#lms_api_key)
 
 ## What is `.env.tests.e2e.secret`
 
@@ -10,7 +10,7 @@
 
 Default values: [`.env.tests.e2e.example`](../.env.tests.e2e.example)
 
-> It was added to [`.gitignore`](./git.md#gitignore) because it may contain [secrets](./environments.md#secrets) such as the [API key](#api_key) or the [VM IP address](./vm.md#your-vm-ip-address).
+> It was added to [`.gitignore`](./git.md#gitignore) because it may contain [secrets](./environments.md#secrets) such as the [LMS API key](./lms-api.md#lms-api-key) or the [VM IP address](./vm.md#your-vm-ip-address).
 
 ## `API_BASE_URL`
 
@@ -18,6 +18,8 @@ The base [URL](./computer-networks.md#url) of the deployed API.
 
 Example: `http://192.0.2.1:42002`
 
-## `API_KEY`
+## `LMS_API_KEY`
 
-The secret key used to authorize [API](./api.md#what-is-an-api) requests. Must match [`API_KEY`](./dotenv-docker-secret.md#api_key) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret) on the VM.
+The [LMS API key](./lms-api.md#lms-api-key).
+
+It value must match the value of [`LMS_API_KEY`](./dotenv-docker-secret.md#lms_api_key) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret) on the VM.

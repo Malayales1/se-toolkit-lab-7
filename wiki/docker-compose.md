@@ -13,6 +13,8 @@
   - [Stop and remove all containers](#stop-and-remove-all-containers)
   - [Stop and remove all containers and volumes](#stop-and-remove-all-containers-and-volumes)
   - [Stop and remove all containers, volumes, and images](#stop-and-remove-all-containers-volumes-and-images)
+- [Troubleshooting](#troubleshooting)
+  - [Containers exit immediately](#containers-exit-immediately)
 
 ## What is `Docker Compose`
 
@@ -109,10 +111,23 @@ services:
 
 ### Stop and remove all containers, volumes, and images
 
-1. To stop all running [services](#service), remove [containers](./docker.md#container), remove [volumes](#volume), and remove [images](./docker.md#image),
+1. To stop all running [services](#service) and remove [containers](./docker.md#container), [volumes](#volume), and [images](./docker.md#image),
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
    docker compose --env-file .env.docker.secret down -v --rmi all
    ```
+
+## Troubleshooting
+
+Cases:
+
+<!-- no toc -->
+- [Containers exit immediately](#containers-exit-immediately)
+
+### Containers exit immediately
+
+Steps to fix:
+
+1. [Stop and remove all containers and volumes](#stop-and-remove-all-containers-and-volumes).

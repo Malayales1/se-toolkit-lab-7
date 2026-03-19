@@ -22,7 +22,7 @@
 
 `Nix` is a cross-platform [package manager](./package-manager.md#package) that provides reproducible, isolated software [environments](./environments.md#what-is-an-environment).
 
-It allows you to install [tools](./package-manager.md#tool) and [dependencies](./package-manager.md#dependency) without affecting the rest of your system.
+It allows you to install [tools](./software-types.md#tool) and [dependencies](./package-manager.md#dependency) without affecting the rest of your system.
 
 Many of the packages are available in [`nixpkgs`](#nixpkgs).
 
@@ -35,7 +35,7 @@ Docs:
 ## `nixpkgs`
 
 `nixpkgs` is the official [package](./package-manager.md#package) collection for `Nix`, containing over 120,000 packages.
-It is a source from which `Nix` installs [tools](./package-manager.md#tool) and [dependencies](./package-manager.md#dependency).
+It is a source from which `Nix` installs [tools](./software-types.md#tool) and [dependencies](./package-manager.md#dependency).
 
 According to [`Repology`](https://repology.org/docs/about), `nixpkgs` contains the largest number of the newest versions of packages among `Linux` repositories (see the [comparison](https://repology.org/repositories/statistics/newest)).
 
@@ -54,7 +54,7 @@ See [Browse a repository revision](./github.md#browse-a-repository-revision):
 - `<repo-url>` is <https://github.com/nixos/nixpkgs>.
 - `<revision>` is a revision that you want to browse.
 
-Example: `https://github.com/nixos/nixpkgs/tree/26eaeac4e409d7b5a6bf6f90a2a2dc223c78d915`
+Example: `https://github.com/nixos/nixpkgs/tree/e38213b91d3786389a446dfce4ff5a8aaf6012f2`
 
 ### Search `nixpkgs`
 
@@ -76,7 +76,11 @@ Complete these steps:
 
 ### Install `Nix`
 
-1. To install `Nix` using the [`Determinate Systems` installer](https://github.com/DeterminateSystems/nix-installer#install-determinate-nix),
+1. [Check whether `Nix` is installed](#verify-nix-installation).
+
+   Skip the subsequent steps if `Nix` is already installed.
+
+2. To install `Nix` using the [`Determinate Systems` installer](https://github.com/DeterminateSystems/nix-installer#install-determinate-nix),
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
@@ -84,13 +88,15 @@ Complete these steps:
    curl -fsSL https://install.determinate.systems/nix | sh -s -- install
    ```
 
-2. Follow the prompts to complete the installation.
-3. [Delete the current `VS Code Terminal`](./vs-code.md#delete-a-vs-code-terminal).
-4. [Open a new `VS Code Terminal`](./vs-code.md#open-a-new-vs-code-terminal).
+3. Follow the prompts to complete the installation.
+
+4. [Delete the current `VS Code Terminal`](./vs-code.md#delete-a-vs-code-terminal).
+
+5. [Open a new `VS Code Terminal`](./vs-code.md#open-a-new-vs-code-terminal).
 
 ### Verify `Nix` installation
 
-1. To check the version of the `nix` [program](./operating-system.md#program),
+1. To check the version of the `nix` [program](./software-types.md#program),
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
@@ -127,7 +133,7 @@ Complete these steps:
    The output should be as follows:
 
    ```terminal
-   26eaeac4e409d7b5a6bf6f90a2a2dc223c78d915
+   e38213b91d3786389a446dfce4ff5a8aaf6012f2
    ```
 
 2. To pin `nixpkgs` in your [flake registry](./nix-flake.md#flake-registry) to the same commit hash,
@@ -135,7 +141,7 @@ Complete these steps:
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   nix registry pin nixpkgs github:nixos/nixpkgs/26eaeac4e409d7b5a6bf6f90a2a2dc223c78d915
+   nix registry pin nixpkgs github:nixos/nixpkgs/e38213b91d3786389a446dfce4ff5a8aaf6012f2
    ```
 
 ### Install `nil`

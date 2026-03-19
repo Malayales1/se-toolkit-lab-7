@@ -6,7 +6,7 @@
 - [`ADDRESS`](#address)
 - [`PORT`](#port)
 - [`RELOAD`](#reload)
-- [`API_KEY`](#api_key)
+- [`LMS_API_KEY`](#lms_api_key)
 - [`APP_ENABLE_INTERACTIONS`](#app_enable_interactions)
 - [`APP_ENABLE_LEARNERS`](#app_enable_learners)
 - [`DB_HOST`](#db_host)
@@ -49,25 +49,25 @@ Default: `8000`
 
 ## `RELOAD`
 
-See [`APP_RELOAD`](./dotenv-docker-secret.md#app_reload) in `.env.docker.secret`.
+See [`APP_RELOAD`](./dotenv-docker-secret.md#app_reload) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 Default: `false`
 
-## `API_KEY`
+## `LMS_API_KEY`
 
-See [`API_KEY`](./dotenv-docker-secret.md#api_key) in `.env.docker.secret`.
+See [`LMS_API_KEY`](./dotenv-docker-secret.md#lms_api_key) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 Default: `test`
 
 ## `APP_ENABLE_INTERACTIONS`
 
-See [`APP_ENABLE_INTERACTIONS`](./dotenv-docker-secret.md#app_enable_interactions) in `.env.docker.secret`.
+See [`APP_ENABLE_INTERACTIONS`](./dotenv-docker-secret.md#app_enable_interactions) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 Default: `true`
 
 ## `APP_ENABLE_LEARNERS`
 
-See [`APP_ENABLE_LEARNERS`](./dotenv-docker-secret.md#app_enable_learners) in `.env.docker.secret`.
+See [`APP_ENABLE_LEARNERS`](./dotenv-docker-secret.md#app_enable_learners) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).
 
 Default: `true`
 

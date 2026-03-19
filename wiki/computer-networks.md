@@ -6,16 +6,21 @@
 - [Machine](#machine)
 - [Internet](#internet)
 - [Protocol](#protocol)
-- [IP address](#ip-address)
-  - [IPv4](#ipv4)
-  - [IPv6](#ipv6)
 - [Host](#host)
   - [Local host](#local-host)
   - [Remote host](#remote-host)
+- [DNS](#dns)
+  - [Domain name](#domain-name)
+- [Host addresses](#host-addresses)
+  - [IP address](#ip-address)
+    - [IPv4](#ipv4)
+    - [IPv6](#ipv6)
   - [Hostname](#hostname)
-    - [`localhost`](#localhost)
-    - [`127.0.0.1`](#127001)
-    - [`0.0.0.0`](#0000)
+  - [FQDN](#fqdn)
+  - [`<host>` placeholder](#host-placeholder)
+  - [`localhost`](#localhost)
+  - [`127.0.0.1`](#127001)
+  - [`0.0.0.0`](#0000)
 - [Port](#port)
   - [Port number](#port-number)
   - [System port](#system-port)
@@ -27,6 +32,7 @@
   - [Components of a URL](#components-of-a-url)
     - [Query parameter](#query-parameter)
   - [URL example](#url-example)
+- [Firewall](#firewall)
 - [Troubleshooting](#troubleshooting)
   - [Service is running but a request fails](#service-is-running-but-a-request-fails)
 
@@ -52,30 +58,6 @@ A protocol is a set of rules that define how data is transmitted and received ov
 
 Example: [`HTTP`](./http.md#what-is-http) is the protocol used for communication between [web servers](./web-infrastructure.md#web-server) and [web clients](./web-infrastructure.md#web-client).
 
-## IP address
-
-An IP address (Internet Protocol address) is a numerical label assigned to each device connected to a [network](#what-is-a-network).
-
-It identifies the device and its location in the network.
-
-Example: `192.0.2.1` ([IPv4](#ipv4)).
-
-### IPv4
-
-`IPv4` (Internet Protocol version 4) uses 32-bit addresses, written as four decimal numbers separated by dots.
-
-Example: `192.0.2.1`, `127.0.0.1`.
-
-It supports approximately 4.3 billion unique addresses.
-
-### IPv6
-
-`IPv6` (Internet Protocol version 6) uses 128-bit addresses, written as eight groups of four hexadecimal digits separated by colons.
-
-Example: `2001:db8::1`.
-
-It was introduced to address the exhaustion of [IPv4](#ipv4) addresses and supports a vastly larger address space.
-
 ## Host
 
 A host is any [machine](#machine) that:
@@ -99,6 +81,46 @@ A remote [host](#host) is a host that is not the [local host](#localhost) — it
 
 Example: [your VM](./vm.md#your-vm) you connect to via [`SSH`](./ssh.md#what-is-ssh) is a remote host.
 
+## DNS
+
+DNS (Domain Name System) is a system that translates human-readable [domain names](#domain-name) into [IP addresses](#ip-address).
+
+When you type a [domain name](#domain-name) into a browser or use it in a command, DNS resolves it to the [IP address](#ip-address) of the [host](#host) that serves the requested resource.
+
+### Domain name
+
+A domain name is a human-readable address used to identify a [host](#host) on the [Internet](#internet).
+
+It is mapped to an [IP address](#ip-address) through [DNS](#dns).
+
+Example: `example.com`, `innopolis.university`.
+
+## Host addresses
+
+### IP address
+
+An IP address (Internet Protocol address) is a numerical label assigned to each device connected to a [network](#what-is-a-network).
+
+It identifies the device and its location in the network.
+
+Example: `192.0.2.1` ([IPv4](#ipv4)).
+
+#### IPv4
+
+`IPv4` (Internet Protocol version 4) uses 32-bit addresses, written as four decimal numbers separated by dots.
+
+Example: `192.0.2.1`, `127.0.0.1`.
+
+It supports approximately 4.3 billion unique addresses.
+
+#### IPv6
+
+`IPv6` (Internet Protocol version 6) uses 128-bit addresses, written as eight groups of four hexadecimal digits separated by colons.
+
+Example: `2001:db8::1`.
+
+It was introduced to address the exhaustion of [IPv4](#ipv4) addresses and supports a vastly larger address space.
+
 ### Hostname
 
 A hostname is a human-readable label assigned to a [host](#host) on a [network](#what-is-a-network).
@@ -107,19 +129,38 @@ It is used to identify the host instead of its [IP address](#ip-address).
 
 Examples: [`localhost`](#localhost), `my-server`, [`vm.innopolis.university`](./vm.md#go-to-the-vms-site).
 
-#### `localhost`
+### FQDN
+
+An FQDN (Fully Qualified Domain Name) is the complete [domain name](#domain-name) that specifies the exact location of a [host](#host) in the [DNS](#dns) hierarchy.
+
+Unlike a [hostname](#hostname), which may be a short label like `my-server`, an FQDN includes all levels of the domain hierarchy down to the top-level domain.
+
+Example: `vm.innopolis.university`, `mail.example.com`.
+
+### `<host>` placeholder
+
+Either of these (without `<` and `>`):
+
+- The [IP address](#ip-address) of the [host](#host)
+- The [hostname](#hostname)
+- The [FQDN](#fqdn) of the host
+
+### `localhost`
 
 `localhost` is a [hostname](#hostname) that refers to the current [host](#host).
 
 It resolves to the loopback [IP address](#ip-address) `127.0.0.1`.
 
-Connections to `localhost` never leave the host — they are handled entirely within the [operating system](./operating-system.md#what-is-an-operating-system).
+Connections to `localhost` never leave the host.
+They are handled entirely within the [operating system](./operating-system.md#what-is-an-operating-system).
 
-#### `127.0.0.1`
+### `127.0.0.1`
 
-`127.0.0.1` is the loopback [IP address](#ip-address). [`localhost`](#localhost) resolves to this address.
+`127.0.0.1` is the loopback [IP address](#ip-address).
 
-#### `0.0.0.0`
+[`localhost`](#localhost) resolves to this address.
+
+### `0.0.0.0`
 
 `0.0.0.0` is a special [IP address](#ip-address) that means "all network interfaces on this [host](#host)."
 
@@ -154,7 +195,7 @@ When a [process](./operating-system.md#process) "listens on a port", it means th
 
 The [operating system](./operating-system.md#what-is-an-operating-system) allocates the port to that process, and any incoming network traffic directed to that port will be handled by the listening process.
 
-This is how [services](./backend.md#service) like [web servers](./web-infrastructure.md#web-server), [`SSH` daemons](./ssh.md#ssh-daemon), or [databases](./database.md#what-is-a-database) accept connections from [clients](./web-infrastructure.md#web-client).
+This is how [services](./backend.md#service) like [web servers](./web-infrastructure.md#web-server), [`SSH` daemons](./ssh.md#sshd), or [databases](./database.md#what-is-a-database) accept connections from [clients](./web-infrastructure.md#web-client).
 
 A port can only be listened on by one process at a time.
 
@@ -207,6 +248,14 @@ Where:
 - Path: `/search`
 - Query: `?q=cats&page=1`
 - Fragment: `#results`
+
+## Firewall
+
+A firewall is a network security system that monitors and controls incoming and outgoing [network](#what-is-a-network) traffic based on predefined security rules.
+
+It permits or blocks connections based on [port](#port) numbers, [IP addresses](#ip-address), and [protocols](#protocol).
+
+Example: a firewall may allow [`SSH`](./ssh.md#what-is-ssh) traffic on port 22 while blocking all other incoming connections.
 
 ## Troubleshooting
 

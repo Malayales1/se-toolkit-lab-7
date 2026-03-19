@@ -22,16 +22,11 @@ Actions:
 
 ## Open `Swagger UI`
 
-**Locally** (services running on your machine):
+1. Open in a browser: `<lms-api-base-url>/docs`.
 
-1. Open <http://127.0.0.1:42001/docs> in a browser.
+   Replace the placeholder [`<lms-api-base-url>`](./lms-api.md#lms-api-base-url-placeholder).
 
-**On a deployed VM:**
-
-1. Open in a browser: `http://<your-vm-ip-address>:<caddy-port>/docs`. Replace:
-
-   - [`<your-vm-ip-address>`](./vm.md#your-vm-ip-address)
-   - [`<caddy-port>`](./caddy.md#caddy-port)
+   You should see the `Swagger UI` with all endpoints listed.
 
 ## Authorize in `Swagger UI`
 

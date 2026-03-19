@@ -35,15 +35,15 @@ Docs:
 
 - Method 1: [Install `Node.js` using `nvm`](#install-nodejs-using-nvm)
 - Method 2: [Install `Node.js` using the commands from the official site](#install-nodejs-using-the-commands-from-the-official-site)
-- Method 3: [Install `Node.js` using `Nix`](#install-nodejs-using-nvm)
+- Method 3: [Install `Node.js` using `Nix`](#install-nodejs-using-nix)
 
 > [!NOTE]
-> Probably only the [`Nix`](./nix.md#what-is-nix) method will work
-> because a library is missing on your VM.
+> Probably only the [`Nix`](./nix.md#what-is-nix) method will work on your VM
+> because a [library](./software-types.md#library) is missing there.
 >
 > See <https://github.com/nodejs/node/issues/60790>
 >
-> `Nix` will fetch all necessary dependencies for you.
+> `Nix` will fetch this library and other necessary dependencies for you.
 
 ### Install `Node.js` using `nvm`
 
@@ -54,14 +54,14 @@ Docs:
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   nvm install 25.7.0
+   nvm install 25.8.1
    ```
 
 3. The output should be similar to this:
 
    ```terminal
-   Downloading and installing node v25.7.0...
-   Now using node v25.7.0 (npm v11.10.1)
+   Downloading and installing node v25.8.1...
+   Now using node v25.8.1 (npm v11.10.1)
    ```
 
 4. To set this version as the default,
@@ -106,7 +106,7 @@ Docs:
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
 
    ```terminal
-   nix profile install nixpkgs#nodejs_25
+   nix profile add nixpkgs#nodejs_25
    ```
 
 3. [Check that `Node.js` works](#check-that-nodejs-works).
@@ -125,7 +125,7 @@ Docs:
 3. The output should be similar to this:
 
    ```terminal
-   v25.7.0
+   v25.8.1
    ```
 
 <!-- TODO install npm with nix because when installing on the VM using nvm libatomic is missing -->
@@ -164,6 +164,8 @@ Docs:
 
 - [`npm`](#npm)
 - [`pnpm`](#pnpm)
+
+<!-- TODO toc should include nested sections but there are not only package managers -->
 
 ### `package.json`
 
@@ -209,7 +211,7 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 #### Install `pnpm` via `Nix`
 
-1. [Install `Nix`](./nix.md#install-nix) if it's not yet installed.
+1. [Install `Nix`](./nix.md#install-nix).
 
 2. To install [`pnpm`](#pnpm) from [`nixpkgs`](./nix.md#nixpkgs),
 
@@ -235,9 +237,6 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
    source ~/.bashrc
    ```
 
-   Alternatively, [open a new `VS Code Terminal`](./vs-code.md#open-a-new-vs-code-terminal).
-   The new terminal will use the new shell profile.
-
 5. To check that [`pnpm`](#pnpm) is available,
 
    [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
@@ -249,7 +248,7 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
    The output should be similar to this:
 
    ```terminal
-   10.28.0
+   10.32.1
    ```
 
 ### Common `pnpm` commands

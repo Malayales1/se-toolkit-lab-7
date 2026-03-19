@@ -97,7 +97,9 @@ These [environment variables](#environment-variable) are available in most [oper
 
 ### `PATH` environment variable
 
-`PATH` contains a list of [directories](./file-system.md#directory) separated by `:`. When you run a command in the [terminal](./vs-code.md#vs-code-terminal), the system looks for the [program](./operating-system.md#program) in each directory listed in `PATH`, from left to right.
+`PATH` contains a list of [directories](./file-system.md#directory) separated by `:`.
+
+When you run a command in the [terminal](./vs-code.md#vs-code-terminal), the system looks for the [program](./software-types.md#program) in each directory listed in `PATH`, from left to right.
 
 ### Inspect `PATH`
 
@@ -114,7 +116,7 @@ These [environment variables](#environment-variable) are available in most [oper
 
 ## `.env` file
 
-We call `.env` file ("dotenv file") a file that contains a list of [environment variables](#environment-variable) in the `<env-variable-name>=<env-variable-value>` format.
+A `.env` file ("dotenv file") is a file that contains a list of [environment variables](#environment-variable) in the `<env-variable-name>=<env-variable-value>` format.
 
 Examples:
 

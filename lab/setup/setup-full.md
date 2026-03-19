@@ -10,7 +10,7 @@
     - [1.3.4. (UPD) Enable issues](#134-upd-enable-issues)
     - [1.3.5. (UPD) Add a classmate as a collaborator](#135-upd-add-a-classmate-as-a-collaborator)
     - [1.3.6. (UPD) Protect your `main` branch](#136-upd-protect-your-main-branch)
-  - [1.4. Set up programs (LOCAL)](#14-set-up-programs-local)
+  - [1.4. Set up tools (LOCAL)](#14-set-up-tools-local)
     - [1.4.1. (UPD) Set up `VS Code`](#141-upd-set-up-vs-code)
     - [1.4.2. (UPD) Set up `Docker`](#142-upd-set-up-docker)
     - [1.4.3. (UPD) (`Windows` only) Switch to the `Linux` shell for the `VS Code Terminal`](#143-upd-windows-only-switch-to-the-linux-shell-for-the-vs-code-terminal)
@@ -21,17 +21,18 @@
     - [1.6.1. (UPD) Copy your fork URL](#161-upd-copy-your-fork-url)
     - [1.6.2. (UPD) Clone your fork](#162-upd-clone-your-fork)
   - [1.7. (UPD) Open the cloned repo and set up `VS Code` (LOCAL)](#17-upd-open-the-cloned-repo-and-set-up-vs-code-local)
-  - [1.8. Continue creating a VM](#18-continue-creating-a-vm)
+  - [1.8. Set up a new VM](#18-set-up-a-new-vm)
   - [1.9. Set up `Python` (LOCAL)](#19-set-up-python-local)
     - [1.9.1. Install `uv`](#191-install-uv)
     - [1.9.2. (UPD) Set up `Python` in `VS Code`](#192-upd-set-up-python-in-vs-code)
   - [1.10. Set up `Node.js` (LOCAL)](#110-set-up-nodejs-local)
     - [1.10.1. Install `Node.js`](#1101-install-nodejs)
     - [1.10.2. (UPD) Install `pnpm`](#1102-upd-install-pnpm)
-  - [1.11. (UPD) Set up the `Qwen Code` (LOCAL)](#111-upd-set-up-the-qwen-code-local)
-  - [1.12. (UPD) Set up the `Qwen Code` API (VM)](#112-upd-set-up-the-qwen-code-api-vm)
-  - [1.13. Set up the `Autochecker` bot (`Telegram`)](#113-set-up-the-autochecker-bot-telegram)
-  - [1.14. Check the setup using the `Autochecker` bot (`Telegram`)](#114-check-the-setup-using-the-autochecker-bot-telegram)
+  - [1.11. (UPD) Set up `Qwen Code` (LOCAL)](#111-upd-set-up-qwen-code-local)
+  - [1.13. (UPD) Deploy the LMS API (REMOTE)](#113-upd-deploy-the-lms-api-remote)
+  - [1.12. (UPD) Set up the `Qwen Code` API (REMOTE)](#112-upd-set-up-the-qwen-code-api-remote)
+  - [1.14. Set up the `Autochecker` bot](#114-set-up-the-autochecker-bot)
+  - [1.15. Check the setup using the `Autochecker` bot](#115-check-the-setup-using-the-autochecker-bot)
 - [2. Optional steps](#2-optional-steps)
   - [2.1. (UPD) Set up `Nix` (LOCAL)](#21-upd-set-up-nix-local)
   - [2.2. (UPD) Set up `direnv` (LOCAL)](#22-upd-set-up-direnv-local)
@@ -54,22 +55,13 @@
 >
 > - `(LOCAL)` - on your local machine (laptop).
 >
-> - `(VM)` - on your VM.
->
-> - `(Telegram)` - in `Telegram`.
+> - `(REMOTE)` - on your VM.
 
 > [!NOTE]
 > We provide the hardest setup steps before all other tasks
 > so that TAs can help you resolve issues during the lab.
 >
 > Tasks are doable when you have the right setup.
-
-> [!NOTE]
-> This lab needs your university email, GitHub alias, and VM IP in the Autochecker bot <https://t.me/auchebot>.
->
-> If you haven't registered, do so now.
->
-> If you want to change something, contact your TA.
 
 ### 1.1. (UPD) Find a partner
 
@@ -84,14 +76,14 @@
 ### 1.2. Start creating a VM
 
 > [!NOTE]
-> Skip this step if you can [connect to your VM](../../wiki/vm.md#connect-to-the-vm).
+> Skip this step if you can [connect to your VM](../../wiki/vm-access.md#connect-to-the-vm-as-the-user-user-local).
 
 [Create a subscription](../../wiki/vm.md#create-a-subscription) to be able to create a VM.
 
 > [!TIP]
 > Subscription approval may take time.
 > Continue with the next steps while you wait — you will
-> [finish creating the VM](#18-continue-creating-a-vm) later.
+> [set up a new VM](#18-set-up-a-new-vm) later.
 
 ### 1.3. Set up your fork (LOCAL)
 
@@ -132,7 +124,9 @@
 
 1. [Protect the `main` branch](../../wiki/github.md#protect-a-branch).
 
-### 1.4. Set up programs (LOCAL)
+### 1.4. Set up tools (LOCAL)
+
+See [tools](../../wiki/software-types.md#tool).
 
 #### 1.4.1. (UPD) Set up `VS Code`
 
@@ -153,10 +147,12 @@
 
 #### 1.4.4. (UPD) Clean up `Docker`
 
-1. [Clean up `Docker`](../../wiki/docker.md#clean-up-docker).
+> [!NOTE]
+> Old containers and volumes from a previous lab version may conflict with the updated services.
+>
+> Stop running containers, remove stopped containers, and delete unused volumes and networks so you start with a clean state.
 
-   **Note:** Old containers and volumes from a previous lab version may conflict with the updated services.
-   Stop running containers, remove stopped containers, and delete unused volumes so you start with a clean state.
+1. [Clean up `Docker`](../../wiki/docker.md#clean-up-docker).
 
 #### 1.4.5. Set up `Git`
 
@@ -208,23 +204,21 @@
 >
 > **The terminal shell is not `bash` or `zsh`.**
 >
-> Go back to [step 1.4.3](#143-upd-windows-only-switch-to-the-linux-shell-for-the-vs-code-terminal) and set the default shell.
+> 1. [(`Windows` only) Switch to the `Linux` shell for the `VS Code Terminal`](#143-upd-windows-only-switch-to-the-linux-shell-for-the-vs-code-terminal).
 >
 > **Recommended extensions did not install.**
 >
-> Reload the `VS Code` window: press `Ctrl+Shift+P`, type `Reload Window`, and press `Enter`.
+> 1. [Run using the `Command Palette`](../../wiki/vs-code.md#run-a-command-using-the-command-palette):
+>    `Reload Window`
 
-### 1.8. Continue creating a VM
+### 1.8. Set up a new VM
 
 > [!TIP]
 > You don't need to create a new [`SSH` key pair](../../wiki/ssh.md#ssh-key-pair) if the old one exists.
 >
 > You can use the key pair that you created before for the new VM.
 
-If you can't [connect to your VM](../../wiki/vm.md#connect-to-the-vm), complete these steps:
-
-1. [Set up `SSH`](../../wiki/ssh.md#set-up-ssh).
-2. [Create a VM using the subscription](../../wiki/vm.md#create-a-vm-using-the-subscription).
+1. If you can't [connect to your VM as the user `admin`](../../wiki/vm-access.md#connect-to-the-vm-as-the-user-user-local), [set up a new VM](../../wiki/vm.md#set-up-a-new-vm).
 
 ### 1.9. Set up `Python` (LOCAL)
 
@@ -249,34 +243,39 @@ If you can't [connect to your VM](../../wiki/vm.md#connect-to-the-vm), complete 
 
 #### 1.10.1. Install `Node.js`
 
-[Install `Node.js`](../../wiki/nodejs.md#install-nodejs).
+1. [Install `Node.js`](../../wiki/nodejs.md#install-nodejs).
 
 #### 1.10.2. (UPD) Install `pnpm`
 
-[Install `pnpm`](../../wiki/nodejs.md#install-pnpm).
+1. [Install `pnpm`](../../wiki/nodejs.md#install-pnpm).
 
-### 1.11. (UPD) Set up the `Qwen Code` (LOCAL)
+### 1.11. (UPD) Set up `Qwen Code` (LOCAL)
 
-`Qwen Code` is a coding agent that can explain tasks, read wiki, explain concepts, write code, debug.
+[`Qwen Code`](../../wiki/qwen-code.md#what-is-qwen-code) is a [coding agent](../../wiki/coding-agents.md#what-is-a-coding-agent) that can answer questions about the repository and help you complete the lab tasks.
 
 <div style="display:flex;flex-wrap:wrap;gap:10px">
   <img alt="Qwen request" src="../images/tasks/setup/qwen-request.png" style="width:300px"></img>
   <img alt="Qwen response" src="../images/tasks/setup/qwen-response.png" style="width:300px"></img>
 </div>
 
-[Set up the `Qwen Code`](../../wiki/qwen.md#set-up-the-qwen-code-local-machine).
+1. [Set up `Qwen Code`](../../wiki/qwen-code.md#set-up-qwen-code-local).
 
-### 1.12. (UPD) Set up the `Qwen Code` API (VM)
+### 1.13. (UPD) Deploy the LMS API (REMOTE)
 
-[Set up the `Qwen Code` API on your VM](../../wiki/qwen.md#set-up-the-qwen-code-api-remote).
+1. [Deploy the LMS API on your VM](../../wiki/lms-api-deployment.md#about-the-lms-api-deployment).
 
-### 1.13. Set up the `Autochecker` bot (`Telegram`)
+### 1.12. (UPD) Set up the `Qwen Code` API (REMOTE)
 
-[Set up the `Autochecker`](../../wiki/autochecker.md#set-up-the-autochecker)
+1. [Set up the `Qwen Code` API on your VM](../../wiki/qwen-code-api-deployment.md#deploy-the-qwen-code-api-remote).
+2. [Check that the `Qwen Code` is accessible](../../wiki/qwen-code-api.md#check-that-the-qwen-code-api-is-accessible) on your local machine (LOCAL).
 
-### 1.14. Check the setup using the `Autochecker` bot (`Telegram`)
+### 1.14. Set up the `Autochecker` bot
 
-[Check the task](../../wiki/autochecker.md#check-the-task-using-the-autochecker-bot).
+1. [Set up the `Autochecker` bot](../../wiki/autochecker.md#set-up-the-autochecker-bot)
+
+### 1.15. Check the setup using the `Autochecker` bot
+
+1. [Check the `Setup` task](../../wiki/autochecker.md#check-the-task-using-the-autochecker-bot).
 
 ---
 

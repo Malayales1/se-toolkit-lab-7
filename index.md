@@ -3,7 +3,7 @@
 <h2>Table of contents</h2>
 
 - [Lab tasks](#lab-tasks)
-  - [Setup](#setup)
+  - [Full setup](#full-setup)
   - [Git workflow](#git-workflow)
   - [Required tasks](#required-tasks)
   - [Optional tasks](#optional-tasks)
@@ -42,7 +42,7 @@
 
 ## Lab tasks
 
-### [Setup](lab/tasks/setup.md)
+### [Full setup](./lab/setup/setup-full.md)
 
 Required and optional steps to get the environment ready: fork, clone, install tools, start services.
 

@@ -48,7 +48,7 @@ Example: [`Caddy`](./caddy.md#what-is-caddy) is the reverse proxy in this projec
 
 To forward a request, a [reverse proxy](#reverse-proxy) takes an incoming [`HTTP`](./http.md#what-is-http) request from a [client](#web-client), sends it to a backend [service](./backend.md#service), and returns the backend's response to the client.
 
-Example: in this project, [`Caddy`](./caddy.md#what-is-caddy) is configured to [forward API requests](./caddy.md#caddy-forwards-requests-to-backend) to the backend service ([`app` service](./docker-compose-yml.md#app-service)).
+Example: in this project, [`Caddy`](./caddy.md#what-is-caddy) is configured to [forward API requests to the backend service](./lms-api.md#forward-requests-to-the-backend) ([`app` service](./docker-compose-yml.md#app-service)).
 
 ## `CDN`
 

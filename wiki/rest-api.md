@@ -18,7 +18,7 @@ Docs:
 
 ## Key principles
 
-- **Resources** are identified by paths: `/items`, `/learners`, `/interactions`.
+- **[Resources](./web-api.md#resource)** are identified by paths: `/items`, `/learners`, `/interactions`.
 - **[`HTTP` methods](./http.md#http-request-method)** define the action: `GET` (read), `POST` (create), `PUT` (update), `DELETE` (remove).
 - **[Status codes](./http.md#http-response-status-code)** indicate the result: `200`, `201`, `404`, etc.
 

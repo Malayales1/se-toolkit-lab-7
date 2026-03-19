@@ -5,19 +5,24 @@
 - [What is an LLM](#what-is-an-llm)
 - [Model](#model)
   - [Choose a model](#choose-a-model)
+- [Inference](#inference)
   - [Local inference](#local-inference)
-- [LLM provider](#llm-provider)
-  - [`OpenRouter`](#openrouter)
-- [Free models](#free-models)
 - [LLM provider API](#llm-provider-api)
+  - [LLM provider APIs](#llm-provider-apis)
   - [`OpenAI`-compatible API](#openai-compatible-api)
+    - [`OpenAI` API](#openai-api)
+    - [`OpenRouter` API](#openrouter-api)
   - [Request to LLM provider API](#request-to-llm-provider-api)
+  - [Free models](#free-models)
 - [Token](#token)
 - [Context](#context)
   - [Context window](#context-window)
-- [Context engineering](#context-engineering)
+  - [Context engineering](#context-engineering)
 - [Prompt](#prompt)
-- [Prompt engineering](#prompt-engineering)
+  - [Prompt engineering](#prompt-engineering)
+- [Response](#response)
+- [Modality](#modality)
+  - [Multimodal model](#multimodal-model)
 
 ## What is an LLM
 
@@ -33,11 +38,17 @@ Docs:
 
 A model is a specific trained version of an [LLM](#llm), identified by a name (e.g., `Qwen3-Coder`, `claude-sonnet-4-6`).
 
-Different models vary in capability, speed, and cost. [Coding agents](./coding-agents.md#choose-and-use-a-coding-agent) let you choose which model to use.
+Different models vary in [modality](#modality), capability, speed, and cost.
 
 ### Choose a model
 
-Choose a model for the task at hand.
+Choose a [model](#model) for the task at hand.
+
+Check which [modalities](#modality) it supports to make sure it can handle the inputs your task requires.
+
+## Inference
+
+Inference is the process of generating output from a trained [model](#model) — for example, producing a text [response](#response) from a [prompt](#prompt).
 
 ### Local inference
 
@@ -45,35 +56,42 @@ Docs:
 
 - [What Can I Run?](https://apxml.com/models)
 
-## LLM provider
-
-### `OpenRouter`
-
-## Free models
-
-- [`OpenRouter`](https://openrouter.ai/) provides [free models](https://openrouter.ai/collections/free-models).
-
 ## LLM provider API
 
-An LLM provider API is an [HTTP API](./web-api.md#http-api) exposed by an LLM provider (e.g., `OpenAI`, `Anthropic`, [`OpenRouter`](#openrouter)) that allows applications and tools to send requests to their [LLMs](#what-is-an-llm) programmatically.
+An LLM provider API allows [applications](./software-types.md#application) to:
 
-[Coding agents](./coding-agents.md#what-is-a-coding-agent) use an LLM provider API to send [prompts](#prompt) and receive generated responses, authenticating each [request](#request-to-llm-provider-api) with an API key.
+- send [prompts](#prompt) to the provider's [LLMs](#what-is-an-llm)
 
-<!-- TODO links - authentication, api key, responses -->
+- receive generated [responses](#response)
 
-Docs:
+### LLM provider APIs
 
 - [OpenAI API reference](https://developers.openai.com/api/reference/overview)
 - [OpenRouter API reference](https://openrouter.ai/docs/api-reference/overview)
+- [Anthropic Claude API reference](https://platform.claude.com/docs/en/api/overview)
 
 ### `OpenAI`-compatible API
 
-An `OpenAI`-compatible API follows the same request and response format as the `OpenAI` API, allowing the same client code to work with different [LLM providers](#llm-provider-api) by changing only the base URL and API key.
+An `OpenAI`-compatible API is an [LLM provider API](#llm-provider-api) that follows the same [request](./http.md#http-request) and [response](./http.md#http-response) format as the [`OpenAI` API](#openai-api).
 
-Most [coding agents](./coding-agents.md#what-is-a-coding-agent) support `OpenAI`-compatible APIs, which lets you point them at providers like [`OpenRouter`](#openrouter) instead of `OpenAI` directly.
+The same [client](./web-infrastructure.md#web-client) code can work with different `OpenAI`-compatible [LLM provider APIs](#llm-provider-api) by changing only the [base URL](./web-api.md#base-url) and the [API key](./web-api.md#api-key).
+
+Most [coding agents](./coding-agents.md#what-is-a-coding-agent) support `OpenAI`-compatible APIs.
+
+#### `OpenAI` API
+
+An [`HTTP` API](./web-api.md#http-api) that provides access to `OpenAI` [models](#model).
 
 Docs:
 
+- [`OpenAI` API](https://openai.com/api/)
+- [OpenAI API reference](https://developers.openai.com/api/reference/overview)
+
+#### `OpenRouter` API
+
+Docs:
+
+- <https://openrouter.ai/>
 - [OpenRouter: OpenAI compatibility](https://openrouter.ai/docs/community/frameworks)
 
 ### Request to LLM provider API
@@ -104,6 +122,10 @@ Docs:
 
 - [OpenAI: Chat completions](https://platform.openai.com/docs/guides/chat-completions)
 
+### Free models
+
+- [`OpenRouter` API](#openrouter-api) provides [free models](https://openrouter.ai/collections/free-models).
+
 ## Token
 
 A token is a unit of text that an [LLM](#llm) processes — roughly a word or a few characters.
@@ -120,7 +142,7 @@ The context window is the maximum amount of text (measured in [tokens](#token)) 
 
 When the context window is full, earlier parts of the conversation are dropped. To avoid this, keep conversations focused and start a new conversation when switching tasks.
 
-## Context engineering
+### Context engineering
 
 Context engineering is the practice of deliberately choosing what information to include in the context to get better results from an LLM.
 
@@ -132,6 +154,25 @@ A prompt is the input text you send to an LLM to guide its response. The quality
 
 See [Prompt engineering](#prompt-engineering).
 
-## Prompt engineering
+### Prompt engineering
 
 Prompt engineering is the practice of writing prompts that produce accurate, relevant, and useful responses.
+
+## Response
+
+A response is the output that an [LLM](#what-is-an-llm) generates from a [prompt](#prompt) during [inference](#inference).
+
+The response is generated token by token — the [model](#model) predicts one [token](#token) at a time until it produces a complete answer.
+
+## Modality
+
+Modality is the type of input or output that a [model](#model) can process or generate:
+
+- text
+- image
+- audio
+- video
+
+### Multimodal model
+
+A multimodal model is a [model](#model) that supports multiple [modalities](#modality) (e.g., text and image).

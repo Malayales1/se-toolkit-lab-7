@@ -4,19 +4,21 @@
 
 - [What is a VM](#what-is-a-vm)
 - [Your VM](#your-vm)
-- [`<your-vm-name>`](#your-vm-name)
-- [`<your-vm-ip-address>`](#your-vm-ip-address)
-- [Prepare the connection](#prepare-the-connection)
+- [Your VM name](#your-vm-name)
+  - [`<your-vm-name>` placeholder](#your-vm-name-placeholder)
+- [Your VM IP address](#your-vm-ip-address)
+  - [`<your-vm-ip-address>` placeholder](#your-vm-ip-address-placeholder)
+- [Connect to the correct network](#connect-to-the-correct-network)
 - [Go to the VMs site](#go-to-the-vms-site)
 - [Create a VM](#create-a-vm)
   - [Create a subscription](#create-a-subscription)
+  - [Delete the existing VM](#delete-the-existing-vm)
   - [Create a VM using the subscription](#create-a-vm-using-the-subscription)
-- [Go to the VM page](#go-to-the-vm-page)
-- [Get the IP address of the VM](#get-the-ip-address-of-the-vm)
-- [Connect to the VM](#connect-to-the-vm)
-- [Delete VM](#delete-vm)
-- [Troubleshooting](#troubleshooting)
-  - [`ping` times out](#ping-times-out)
+  - [Go to the VM page](#go-to-the-vm-page)
+  - [Check the VM is running](#check-the-vm-is-running)
+  - [Get the IP address of the VM](#get-the-ip-address-of-the-vm)
+- [Recreate the VM](#recreate-the-vm)
+- [Set up a new VM](#set-up-a-new-vm)
 
 ## What is a VM
 
@@ -36,54 +38,63 @@ You probably won't have access to the VMs after the course finishes.
 
 See [VM image](./vm-info.md) for the information about your VM.
 
-## `<your-vm-name>`
+## Your VM name
 
-The name you chose when [creating the VM](#create-a-vm-using-the-subscription) (without `<` and `>`).
+The name you chose when [creating the VM](#create-a-vm-using-the-subscription).
 
-## `<your-vm-ip-address>`
+### `<your-vm-name>` placeholder
 
-The [IP address](./computer-networks.md#ip-address) (without `<` and `>`) of [your VM](#your-vm) in the `UniversityStudent` [network](./computer-networks.md#what-is-a-network).
+[Your VM name](#your-vm-name) (without `<` and `>`).
+
+## Your VM IP address
+
+The [IP address](./computer-networks.md#ip-address) of [your VM](#your-vm) in the `UniversityStudent` [network](./computer-networks.md#what-is-a-network).
+
+See [Get the IP address of your VM](#get-the-ip-address-of-the-vm).
+
+### `<your-vm-ip-address>` placeholder
+
+[Your VM IP address](#your-vm-ip-address) (without `<` and `>`).
 
 Example: `192.0.2.1`.
 
 See [Get the IP address of the VM](#get-the-ip-address-of-the-vm).
 
-## Prepare the connection
+## Connect to the correct network
 
 1. Disable `VPN`.
-2. Connect your computer to the `Wi-Fi` network `UniversityStudent`.
-3. To check the connection to your VM,
 
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   ping <your-vm-ip-address>
-   ```
-
-   See [`<your-vm-ip-address>`](#your-vm-ip-address).
+2. Connect your local machine (laptop) to the `Wi-Fi` network `UniversityStudent`.
 
 ## Go to the VMs site
 
-1. Open the [https://vm.innopolis.university](https://vm.innopolis.university) site in a browser.
+1. [Connect to the correct network](#connect-to-the-correct-network).
+2. Open the [https://vm.innopolis.university](https://vm.innopolis.university) site in a browser.
 
 ## Create a VM
 
-Complete these steps to create a VM:
+Complete these steps:
 
 <!-- no toc -->
-1. [Create a subscription](#create-a-subscription)
-2. [Create a new `SSH` key](./ssh.md#create-a-new-ssh-key)
-3. [Create a VM using the subscription](#create-a-vm-using-the-subscription)
+1. [Connect to the correct network](#connect-to-the-correct-network).
+2. [Create a subscription](#create-a-subscription) if you don't have one.
+3. [Delete the existing VM](#delete-the-existing-vm) if you have one.
+4. [Create a VM using the subscription](#create-a-vm-using-the-subscription).
+5. [Go to the VM page](#go-to-the-vm-page).
+6. [Check the VM is running](#check-the-vm-is-running).
+7. [Get the IP address of the VM](#get-the-ip-address-of-the-vm).
+8. [Check the VM is accessible (LOCAL)](./vm-access.md#check-the-vm-is-accessible-local).
 
 ### Create a subscription
 
 1. [Go to the VMs site](#go-to-the-vms-site).
-2. Click `NEW`.
-3. Click `ADD SUBSCRIPTION`.
-4. Click `Software Engineering Toolkit`.
-5. Click checkmark.
-6. Go to the [`SUBSCRIPTIONS`](https://vm.innopolis.university/#Workspaces/MyAccountExtension/subscriptions) tab.
-7. Look at the `SUBSCRIPTION` column.
+2. Click `+ NEW`.
+3. Click `MY ACCOUNT`.
+4. Click `ADD SUBSCRIPTION`.
+5. Click `Software Engineering Toolkit`.
+6. Click the checkmark.
+7. Go to the [`SUBSCRIPTIONS`](https://vm.innopolis.university/#Workspaces/MyAccountExtension/subscriptions) tab.
+8. Look at the `SUBSCRIPTION` column.
 
    You should see there `Software Engineering Toolkit`.
 
@@ -95,10 +106,15 @@ Complete these steps to create a VM:
 
    Don't just sit and wait. Complete other steps.
 
+### Delete the existing VM
+
+1. [Go to the VM page](#go-to-the-vm-page).
+2. Click `DELETE`.
+
 ### Create a VM using the subscription
 
-1. [Create a new `SSH` key](./ssh.md#create-a-new-ssh-key) if not created.
-2. [Go to the `vm.innopolis.university` site](#go-to-the-vms-site).
+1. [Set up `SSH` (LOCAL)](./vm-access.md#set-up-ssh-local) if it's not yet set up.
+2. [Go to the VMs site](#go-to-the-vms-site).
 3. Click `+ NEW`.
 4. Click `STANDALONE VIRTUAL MACHINE`.
 5. Click `FROM GALLERY`.
@@ -106,86 +122,72 @@ Complete these steps to create a VM:
 7. Click `Linux Ubuntu 24.04 Software Engineering Toolkit`.
 8. Click `->` to go to the page 2.
 9. Fill in the fields:
-    - `NAME`: Write the name of your VM (we'll refer to it as [`<your-vm-name>`](#your-vm-name) in the instructions).
+    - `NAME`: Write the name of your VM (we'll refer to it as [`<your-vm-name>`](#your-vm-name-placeholder) in the instructions).
     - `NEW PASSWORD`: Write the password.
     - `CONFIRM`: Write the same password.
     - `ADMINISTRATOR SSH KEY`:
-       1. [Find the `SSH` key files](./ssh.md#find-the-ssh-key-files).
+       1. [Get the `SSH` public key (LOCAL)](./vm-access.md#get-the-ssh-public-key-local).
        2. Copy the **full content** of the public key file.
        3. Paste the content into the input field.
-10. Note that the user's name on the VM is [`root`](./linux.md#the-root-user).
+10. Note that the user's name on the VM is [`root`](./linux.md#the-user-root).
 11. Click `->` to go to the page 3.
 12. Go to `NETWORK ADAPTER 1`.
 13. Click `Not Connected`.
 14. In the drop-down list, click `StudentsCourses01;10.93.24.0/22`.
 15. Click checkmark to complete the setup.
-16. The VM will become available in approximately 20 minutes.
+16. In approximately 20 minutes, [check the VM is accessible](./vm-access.md#check-the-vm-is-accessible-local).
 
-## Go to the VM page
+### Go to the VM page
 
 1. [Go to the VMs site](#go-to-the-vms-site).
-2. Open the `VIRTUALS MACHINES` tab ([https://vm.innopolis.university/#Workspaces/VMExtension/VirtualMachines](https://vm.innopolis.university/#Workspaces/VMExtension/VirtualMachines)).
-3. Look at the `NAME`.
-4. Find `<your-vm-name>`.
-5. The `STATUS` should be `Running`.
-6. Click `<your-vm-name>`.
-7. Click `DASHBOARD`.
-8. You should be on the VM page.
+2. Click `VIRTUALS MACHINES`.
+3. Look at the `NAME` column.
+4. Click [`<your-vm-name>`](#your-vm-name-placeholder).
+5. Click `DASHBOARD`.
+6. You should be on the VM page.
 
-## Get the IP address of the VM
+### Check the VM is running
+
+1. [Go to the VM page](./vm.md#go-to-the-vm-page).
+2. Go to the `quick glance` sidebar.
+3. You should see:
+
+   ```terminal
+   Status
+   Running
+   ```
+
+   > <h3>Troubleshooting</h3>
+   >
+   > **The VM isn't running in 20 minutes after creation**
+   >
+   > 1. Wait 10 more minutes.
+   > 2. If the status doesn't change, [recreate the VM](#recreate-the-vm).
+
+### Get the IP address of the VM
 
 1. [Go to the VM page](#go-to-the-vm-page).
 2. Go to the `quick glance` sidebar (on the right).
-3. Go to `IP Address(es)`.
-4. You should see there `StudentsCourses01` - [`<your-vm-ip-address>`](#your-vm-ip-address).
+3. Go to `IP ADDRESS(ES)`.
+4. You should see there:
+
+   ```
+   StudentsCourses01 - <your-vm-ip-address>
+   ```
+
+   See [`<your-vm-ip-address>`](#your-vm-ip-address-placeholder).
 
    Example: `StudentsCourses01` - `192.0.2.1`
 
-## Connect to the VM
+## Recreate the VM
 
-1. (If not completed) [Add your VM to the `SSH` config](./ssh.md#add-the-host-to-ssh).
-2. Disable `VPN`.
-3. Connect your computer to the [`Wi-Fi` network](./computer-networks.md#wi-fi-network) `UniversityStudent`.
-4. Open [`VS Code`](./vs-code.md).
-5. [Connect to the VM](./ssh.md#connect-to-the-vm).
-6. If the connection is successful, you should see:
-   1. The host fingerprint prompt (first connection only).
-   2. A remote [shell prompt](./shell.md#shell-prompt) on the VM (for example, `root@<your-vm-name>:~#`).
-   3. If you use the `ms-vscode-remote.remote-ssh` extension in `VS Code`, the status bar should show that you are connected to a remote host.
-7. Otherwise, see [troubleshooting](#troubleshooting).
+1. [Delete the existing VM](#delete-the-existing-vm).
+2. [Create a new VM](#create-a-vm-using-the-subscription).
 
-## Delete VM
+## Set up a new VM
 
-1. [Go to the VM page](#go-to-the-vm-page).
-2. Click `DELETE`.
-
-## Troubleshooting
-
-### `ping` times out
-
-1. Connect your computer to the [`Wi-Fi` network](./computer-networks.md#wi-fi-network) `UniversityStudent`.
-2. Recreate the VM.
-
-   Use the same public key as before.
-
-If you can't connect:
-
-1. [Go to the VM page](#go-to-the-vm-page).
-2. Verify the VM is in `Running` status.
-3. Verify the VM IP address has not changed.
-4. To test the [`SSH`](./ssh.md) connection in verbose mode,
-
-   [run in the `VS Code Terminal`](./vs-code.md#run-a-command-in-the-vs-code-terminal):
-
-   ```terminal
-   ssh -v se-toolkit-vm
-   ```
-
-5. If you get `Permission denied (publickey)`, check:
-   1. Your public key was added to the VM configuration.
-   2. `IdentityFile` in your `SSH` config points to the correct private key.
-   3. Your private key file permissions are correct (`chmod 600 ~/.ssh/se_toolkit_key` on `Linux`/`macOS`/`WSL`).
-6. Ask the TA to help and show them:
-   1. The VM page.
-   2. The output of `ssh -v se-toolkit-vm`.
-   3. Your [`VS Code Terminal`](./vs-code.md#vs-code-terminal).
+1. [Recreate the VM](#recreate-the-vm).
+2. [Set up the `SSH` access to the VM as the user `admin`](./vm-access.md#set-up-the-ssh-access-to-the-vm).
+3. [Provide the `Autochecker` agent with access to the VM](./autochecker.md#provide-the-autochecker-agent-with-access-to-the-vm-remote).
+4. [Harden the VM for the user `admin`](./vm-hardening.md#harden-the-vm).
+5. [Set up `Docker` as the user `admin`](./docker.md#set-up-docker-as-the-user-user-remote).

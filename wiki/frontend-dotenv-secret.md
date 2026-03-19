@@ -18,19 +18,11 @@ Docs:
 Default values: [`frontend/.env.example`](../frontend/.env.example)
 
 > [!NOTE]
-> It was added to [`.gitignore`](./git.md#gitignore) because you may specify there
+> The file `frontend/.env.secret` was added to [`frontend/.gitignore`](./git.md#gitignore) because you may specify there
 > [secrets](./environments.md#secrets) such as the [address of your VM](./vm.md#your-vm-ip-address).
-
-> [!TIP]
-> No edits are needed for local development.
-> The default values in [`frontend/.env.example`](../frontend/.env.example) work out of the box.
 
 ## `VITE_API_TARGET`
 
-The URL of the back-end API that the `Vite` dev server proxies requests to.
+The [LMS API base URL](./lms-api.md#lms-api-base-url) that the `Vite` dev server [proxies](./web-infrastructure.md#reverse-proxy) requests to.
 
 Default: `http://127.0.0.1:42002`
-
-The default points to the [`Caddy`](./caddy.md#what-is-caddy) reverse proxy running via [`Docker Compose`](./docker-compose.md#what-is-docker-compose) on your local machine.
-
-Change this to `http://<your-vm-ip-address>:<caddy-port>` if the API runs on the VM. See [`<your-vm-ip-address>`](./vm.md#your-vm-ip-address) and [`CADDY_HOST_PORT`](./dotenv-docker-secret.md#caddy_host_port) in [`.env.docker.secret`](./dotenv-docker-secret.md#what-is-envdockersecret).

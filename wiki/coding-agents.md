@@ -33,11 +33,11 @@ Therefore:
 
 ## Choose and use a coding agent
 
-You may use any [coding agent](#what-is-a-coding-agent) with almost any [LLM](./llm.md#what-is-an-llm).
+You may use any [coding agent](#what-is-a-coding-agent) with almost any [model](./llm.md#model).
 
 For this course, we recommend using free [coding agents](#what-is-a-coding-agent) and [free models](./llm.md#free-models) to save your money.
 
-Example: [`Qwen Code`](./qwen.md#what-is-qwen-code).
+For example, you can [set up `Qwen Code`](./qwen-code.md#set-up-qwen-code-local).
 
 ## Skill
 

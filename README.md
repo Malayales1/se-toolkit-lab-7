@@ -81,7 +81,7 @@ By the end of this lab, you should be able to say:
 
 ### Prerequisites
 
-1. Complete the [lab setup](./lab/tasks/setup-simple.md#lab-setup)
+1. Complete the [lab setup](./lab/setup/setup-simple.md#lab-setup)
 
 > **Note**: First time in this course? Do the [full setup](./lab/tasks/setup.md#lab-setup) instead.
 

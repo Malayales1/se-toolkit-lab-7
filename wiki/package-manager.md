@@ -2,7 +2,6 @@
 
 - [What is a package manager](#what-is-a-package-manager)
 - [Package](#package)
-- [Tool](#tool)
 - [Dependency](#dependency)
 - [Package managers](#package-managers)
   - [`Nix`](#nix)
@@ -12,17 +11,14 @@
 ## What is a package manager
 
 A package manager is a tool that automates the installation, upgrade, and removal of software [packages](#package).
-It resolves [dependencies](#dependency) and ensures the correct versions of [tools](#tool) and libraries are available in your environment.
+It resolves [dependencies](#dependency) and ensures the correct versions of [tools](./software-types.md#tool) and [libraries](./software-types.md#library) are available in your environment.
 
 ## Package
 
 A package is a bundle of software — code, configuration, and metadata — that a package manager can install and manage.
 Packages are versioned, so you can install a specific version or upgrade to a newer one.
 
-## Tool
-
-A tool is a [program](./operating-system.md#program) you run directly on the command line or in your workflow, such as `git`, `python`, or `node`.
-Package managers install tools alongside their required [dependencies](#dependency).
+[Package managers](#what-is-a-package-manager) install packages alongside their required [dependencies](#dependency).
 
 ## Dependency
 
