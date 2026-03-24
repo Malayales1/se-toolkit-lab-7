@@ -6,7 +6,8 @@ from services import LMSApiClient
 async def handle_start() -> str:
     return (
         "Welcome to the LMS bot.\n"
-        "Use /help to see available commands."
+        "Use /help to see available commands, or ask things like "
+        "\"which lab has the lowest pass rate?\""
     )
 
 

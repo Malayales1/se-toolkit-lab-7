@@ -18,6 +18,26 @@ class LMSApiClient:
             "Content-Type": "application/json",
         }
 
+    async def _get(self, path: str, **kwargs: Any) -> Any:
+        async with httpx.AsyncClient(timeout=20) as client:
+            response = await client.get(
+                f"{self.base_url}{path}",
+                headers=self._headers,
+                **kwargs,
+            )
+            response.raise_for_status()
+            return response.json()
+
+    async def _post(self, path: str, **kwargs: Any) -> Any:
+        async with httpx.AsyncClient(timeout=30) as client:
+            response = await client.post(
+                f"{self.base_url}{path}",
+                headers=self._headers,
+                **kwargs,
+            )
+            response.raise_for_status()
+            return response.json()
+
     def _format_error(self, exc: Exception) -> str:
         if isinstance(exc, httpx.HTTPStatusError):
             status_code = exc.response.status_code
@@ -49,25 +69,43 @@ class LMSApiClient:
         return f"Backend error: {str(exc)}."
 
     async def get_items(self) -> list[dict[str, Any]]:
-        async with httpx.AsyncClient(timeout=20) as client:
-            response = await client.get(
-                f"{self.base_url}/items/",
-                headers=self._headers,
-            )
-            response.raise_for_status()
-            data = response.json()
-            return data if isinstance(data, list) else []
+        data = await self._get("/items/")
+        return data if isinstance(data, list) else []
+
+    async def get_learners(self) -> list[dict[str, Any]]:
+        data = await self._get("/learners/")
+        return data if isinstance(data, list) else []
+
+    async def get_scores(self, lab: str) -> list[dict[str, Any]]:
+        data = await self._get("/analytics/scores", params={"lab": lab})
+        return data if isinstance(data, list) else []
 
     async def get_pass_rates(self, lab: str) -> list[dict[str, Any]]:
-        async with httpx.AsyncClient(timeout=20) as client:
-            response = await client.get(
-                f"{self.base_url}/analytics/pass-rates",
-                params={"lab": lab},
-                headers=self._headers,
-            )
-            response.raise_for_status()
-            data = response.json()
-            return data if isinstance(data, list) else []
+        data = await self._get("/analytics/pass-rates", params={"lab": lab})
+        return data if isinstance(data, list) else []
+
+    async def get_timeline(self, lab: str) -> list[dict[str, Any]]:
+        data = await self._get("/analytics/timeline", params={"lab": lab})
+        return data if isinstance(data, list) else []
+
+    async def get_groups(self, lab: str) -> list[dict[str, Any]]:
+        data = await self._get("/analytics/groups", params={"lab": lab})
+        return data if isinstance(data, list) else []
+
+    async def get_top_learners(self, lab: str, limit: int = 5) -> list[dict[str, Any]]:
+        data = await self._get(
+            "/analytics/top-learners",
+            params={"lab": lab, "limit": limit},
+        )
+        return data if isinstance(data, list) else []
+
+    async def get_completion_rate(self, lab: str) -> dict[str, Any]:
+        data = await self._get("/analytics/completion-rate", params={"lab": lab})
+        return data if isinstance(data, dict) else {}
+
+    async def trigger_sync(self) -> dict[str, Any]:
+        data = await self._post("/pipeline/sync", json={})
+        return data if isinstance(data, dict) else {}
 
     async def health_summary(self) -> str:
         try:

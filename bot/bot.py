@@ -7,6 +7,7 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.types import Message
 
 from config import get_settings
@@ -30,7 +31,38 @@ async def render_response(message_text: str) -> str:
         base_url=settings.lms_api_base_url,
         api_key=settings.lms_api_key,
     )
-    return await route_message(message_text, api_client)
+    return await route_message(message_text, api_client, settings)
+
+
+def build_start_keyboard() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="Available Labs", callback_data="ask:labs"),
+                InlineKeyboardButton(text="Lab 4 Scores", callback_data="ask:lab4"),
+            ],
+            [
+                InlineKeyboardButton(
+                    text="Lowest Pass Rate",
+                    callback_data="ask:lowest_pass_rate",
+                ),
+                InlineKeyboardButton(
+                    text="Top Learners",
+                    callback_data="ask:top_learners",
+                ),
+            ],
+        ]
+    )
+
+
+def callback_to_prompt(callback_data: str) -> str:
+    mapping = {
+        "ask:labs": "what labs are available?",
+        "ask:lab4": "show me scores for lab 4",
+        "ask:lowest_pass_rate": "which lab has the lowest pass rate?",
+        "ask:top_learners": "who are the top 5 students in lab 4?",
+    }
+    return mapping.get(callback_data, "what can you do?")
 
 
 async def run_test_mode(message_text: str) -> int:
@@ -50,12 +82,20 @@ async def run_telegram_mode() -> int:
     @dispatcher.message(Command("start", "help", "health", "labs", "scores"))
     async def command_handler(message: Message) -> None:
         response = await render_response(message.text or "")
-        await message.answer(response)
+        reply_markup = build_start_keyboard() if (message.text or "").startswith("/start") else None
+        await message.answer(response, reply_markup=reply_markup)
 
     @dispatcher.message()
     async def text_handler(message: Message) -> None:
         response = await render_response(message.text or "")
         await message.answer(response)
+
+    @dispatcher.callback_query()
+    async def callback_handler(callback_query) -> None:
+        prompt = callback_to_prompt(callback_query.data or "")
+        response = await render_response(prompt)
+        await callback_query.message.answer(response, reply_markup=build_start_keyboard())
+        await callback_query.answer()
 
     await dispatcher.start_polling(bot)
     return 0
