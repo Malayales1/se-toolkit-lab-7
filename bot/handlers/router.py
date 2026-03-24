@@ -28,6 +28,6 @@ async def route_message(message: str, api_client: LMSApiClient) -> str:
     if command == "/labs":
         return await handle_labs(api_client)
     if command == "/scores":
-        return await handle_scores(parts[1] if len(parts) > 1 else None)
+        return await handle_scores(parts[1] if len(parts) > 1 else None, api_client)
 
     return await handle_plain_text(text)

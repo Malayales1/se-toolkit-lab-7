@@ -18,6 +18,36 @@ class LMSApiClient:
             "Content-Type": "application/json",
         }
 
+    def _format_error(self, exc: Exception) -> str:
+        if isinstance(exc, httpx.HTTPStatusError):
+            status_code = exc.response.status_code
+            reason = exc.response.reason_phrase or "HTTP error"
+            return f"Backend error: HTTP {status_code} {reason}."
+
+        if isinstance(exc, httpx.ConnectError):
+            message = str(exc).lower()
+            if "connection refused" in message:
+                detail = "connection refused"
+            elif "nodename nor servname provided" in message:
+                detail = "host resolution failed"
+            else:
+                detail = "connection failed"
+            return (
+                f"Backend error: {detail} ({self.base_url}). "
+                "Check that the services are running."
+            )
+
+        if isinstance(exc, httpx.TimeoutException):
+            return (
+                f"Backend error: request timed out ({self.base_url}). "
+                "The backend may be overloaded or unavailable."
+            )
+
+        if isinstance(exc, httpx.HTTPError):
+            return f"Backend error: {str(exc)}."
+
+        return f"Backend error: {str(exc)}."
+
     async def get_items(self) -> list[dict[str, Any]]:
         async with httpx.AsyncClient(timeout=20) as client:
             response = await client.get(
@@ -28,15 +58,24 @@ class LMSApiClient:
             data = response.json()
             return data if isinstance(data, list) else []
 
+    async def get_pass_rates(self, lab: str) -> list[dict[str, Any]]:
+        async with httpx.AsyncClient(timeout=20) as client:
+            response = await client.get(
+                f"{self.base_url}/analytics/pass-rates",
+                params={"lab": lab},
+                headers=self._headers,
+            )
+            response.raise_for_status()
+            data = response.json()
+            return data if isinstance(data, list) else []
+
     async def health_summary(self) -> str:
         try:
             items = await self.get_items()
-        except httpx.HTTPStatusError as exc:
-            return f"Backend is reachable but returned HTTP {exc.response.status_code}."
-        except httpx.HTTPError:
-            return "Backend is down or unreachable right now."
+        except Exception as exc:
+            return self._format_error(exc)
 
-        return f"Backend is up. Retrieved {len(items)} items."
+        return f"Backend is healthy. {len(items)} items available."
 
     async def list_labs(self) -> list[str]:
         items = await self.get_items()
@@ -53,3 +92,24 @@ class LMSApiClient:
                 results.append(f"lab-{index:02d}: {title or 'Untitled lab'}")
 
         return results
+
+    async def pass_rates_summary(self, lab: str) -> str:
+        try:
+            rows = await self.get_pass_rates(lab)
+        except Exception as exc:
+            return self._format_error(exc)
+
+        if not rows:
+            return (
+                f"No pass-rate data found for {lab}. "
+                "Check the lab code and make sure the backend has synced data."
+            )
+
+        lines = [f"Pass rates for {lab}:"]
+        for row in rows:
+            task = str(row.get("task", "Untitled task"))
+            avg_score = float(row.get("avg_score", 0.0))
+            attempts = int(row.get("attempts", 0))
+            lines.append(f"- {task}: {avg_score:.1f}% ({attempts} attempts)")
+
+        return "\n".join(lines)
