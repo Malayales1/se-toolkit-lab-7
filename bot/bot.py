@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import sys
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
@@ -74,7 +75,12 @@ async def run_test_mode(message_text: str) -> int:
 async def run_telegram_mode() -> int:
     settings = get_settings()
     if not settings.bot_token or settings.bot_token == "CHANGE_ME_WITH_BOTFATHER_TOKEN":
-        raise SystemExit("BOT_TOKEN is required in non-test mode.")
+        print(
+            "BOT_TOKEN is not configured. Waiting for a real Telegram token before polling starts.",
+            file=sys.stderr,
+        )
+        while True:
+            await asyncio.sleep(3600)
 
     bot = Bot(token=settings.bot_token)
     dispatcher = Dispatcher()

@@ -77,6 +77,55 @@ By the end of this lab, you should be able to say:
 2. I can ask it questions in plain language and it fetches the right data.
 3. I used an AI coding agent to plan and build the whole thing.
 
+## Deploy
+
+### Required environment variables
+
+Set these in `.env.docker.secret` on the VM before starting Docker Compose:
+
+- `BOT_TOKEN` for your Telegram bot from BotFather
+- `LMS_API_KEY` for the backend
+- `LLM_API_KEY`, `LLM_API_BASE_URL`, and `LLM_API_MODEL` for the LLM router
+
+When the bot runs inside Docker, it must talk to the backend over the Docker network, so the bot service uses `http://backend:8000` instead of `localhost:42002`. If your Qwen proxy runs on the VM host, set `LLM_API_BASE_URL` to `http://host.docker.internal:42005/v1`.
+
+### Start or rebuild
+
+Run this on the VM from the repository root:
+
+```bash
+docker compose --env-file .env.docker.secret up --build -d
+docker compose --env-file .env.docker.secret ps
+```
+
+If you previously started the bot with `nohup`, stop it first:
+
+```bash
+pkill -f "bot.py" 2>/dev/null
+```
+
+### Verify deployment
+
+Check that the backend still responds:
+
+```bash
+curl -sf http://localhost:42002/docs >/dev/null
+```
+
+Check the bot container:
+
+```bash
+docker compose --env-file .env.docker.secret ps bot
+docker compose --env-file .env.docker.secret logs bot --tail 20
+```
+
+Then verify in Telegram:
+
+1. Send `/start`
+2. Send `/health`
+3. Ask `what labs are available?`
+4. Ask `which lab has the lowest pass rate?`
+
 ## Tasks
 
 ### Prerequisites
