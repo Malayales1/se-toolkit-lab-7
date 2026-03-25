@@ -106,3 +106,4 @@ Send these in Telegram — everything that worked before should still work:
 - [ ] README has a section with "deploy" in heading.
 - [ ] Bot responds in Telegram from the container (TA-verified).
 - [ ] Git workflow followed.
+- [ ] .
