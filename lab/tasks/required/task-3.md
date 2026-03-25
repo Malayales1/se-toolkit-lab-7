@@ -230,3 +230,4 @@ Check `bot.log` for the debug output — same `[tool]` lines you saw in `--test`
 - [ ] `--test "what labs are available"` returns non-empty answer (at least 20 chars).
 - [ ] `--test "which lab has the lowest pass rate"` mentions a specific lab.
 - [ ] `--test "asdfgh"` returns a helpful message, no crash.
+.
