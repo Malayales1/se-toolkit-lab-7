@@ -146,3 +146,4 @@ After verifying with `--test`, deploy the bot on your VM and check it responds i
 ### In `Telegram`
 
 - [ ] Bot responds to `/start`.
+- [ ] .
